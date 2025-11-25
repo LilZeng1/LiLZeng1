@@ -1,5 +1,5 @@
 # 💫 About Me:
-🧣I'm currently working on my Note App, "Velo". <br>👨🏻‍💻 I'm a Web & App Developer.<br>🌱 I'm currently learning about Game Programming.<br>💁🏻‍♂️ I'm looking for help with Unity / 2D Game Programming. <br>💬 You could ask me about Web Development and Styling.<br>🚩 My Goal is: being an 2D Game Developer.
+👨🏻‍💻 I'm a Web & App Developer.<br>🌱 I'm currently learning about Game Programming.<br>💁🏻‍♂️ I'm looking for help with Unity / 2D Game Programming. <br>💬 You could ask me about Web Development and Styling.<br>🚩 My Goal is: being an 2D Game Developer.
 
 
 ## 🌐 Socials:
