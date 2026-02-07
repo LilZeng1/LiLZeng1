@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const playIcon = document.getElementById('playIcon');
     const audioPlayer = document.getElementById('audioPlayer');
     const volumeSlider = document.getElementById('volumeSlider');
-
+    
     let isPlaying = false;
 
     playBtn.addEventListener('click', () => {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.changeLang = function (lang) {
+    window.changeLang = function(lang) {
         const elements = document.querySelectorAll('[data-i18n]');
         elements.forEach(el => {
             const key = el.getAttribute('data-i18n');
@@ -91,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         document.getElementById('currentLang').textContent = lang.toUpperCase();
-
-        if (lang === 'ar') {
+        
+        if(lang === 'ar') {
             document.body.dir = 'rtl';
             document.body.style.fontFamily = "'Tahoma', sans-serif";
         } else {
