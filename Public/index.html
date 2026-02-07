@@ -49,11 +49,10 @@
     <nav class="fixed top-0 w-full z-50 backdrop-blur-lg border-b border-white/5 bg-black/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex items-center">
-                    <span
-                        class="text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                        GA.
-                    </span>
+                <div class="flex items-center gap-3">
+                    <img src="Assets/GeorgeAvatar.png" alt="George Arshed"
+                        class="w-10 h-10 rounded-full border border-white/20 object-cover shadow-lg hover:scale-110 transition-transform">
+                    <span class="font-display font-bold text-xl tracking-tight hidden sm:block">George Arshed</span>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
@@ -65,7 +64,7 @@
                             data-i18n="nav_about">About</a>
                         <a href="#projects"
                             class="hover:text-pink-400 transition-colors px-3 py-2 rounded-md text-sm font-medium"
-                            data-i18n="nav_projects">Projects</a>
+                            data-i18n="nav_projects">Ventures</a>
                         <a href="#contact"
                             class="hover:text-pink-400 transition-colors px-3 py-2 rounded-md text-sm font-medium"
                             data-i18n="nav_contact">Contact</a>
@@ -95,6 +94,13 @@
     <main class="pt-20">
         <section id="home" class="min-h-screen flex items-center justify-center relative px-4">
             <div class="text-center max-w-5xl mx-auto z-10">
+                <div class="inline-block mb-6 relative group">
+                    <div
+                        class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
+                    </div>
+                    <img src="Assets/GeorgeAvatar.png"
+                        class="relative w-32 h-32 rounded-full border-4 border-[#0f0f11] object-cover shadow-2xl mx-auto">
+                </div>
                 <div
                     class="inline-block mb-4 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md animate-fade-in-down">
                     <span class="text-sm font-medium text-pink-400 tracking-wider">ENTREPRENEUR & DEVELOPER</span>
@@ -191,21 +197,25 @@
                     Ventures</h2>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#151515]">
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 z-10"></div>
-                        <div
-                            class="h-64 bg-indigo-900/40 w-full flex items-center justify-center relative overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-600/20 to-purple-600/20"></div>
-                            <h3
-                                class="text-4xl font-black text-white/10 tracking-widest scale-150 group-hover:scale-100 transition-transform duration-700">
-                                LEVANT</h3>
+                    <div
+                        class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#151515] hover:border-indigo-500/50 transition-all duration-500">
+                        <div class="h-64 w-full relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#151515] to-transparent z-10"></div>
+                            <img src="Assets/Levant-Banner.gif" alt="Levant Banner"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                         </div>
+
                         <div class="relative z-20 p-8 mt-[-60px]">
-                            <div class="flex justify-between items-end mb-4">
-                                <h3 class="text-3xl font-bold">Levant</h3>
-                                <span
-                                    class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-lg text-xs font-bold uppercase tracking-wider border border-indigo-500/30">Owner</span>
+                            <div class="flex items-end gap-5 mb-6">
+                                <img src="Assets/Levant-Logo.png" alt="Levant Logo"
+                                    class="w-24 h-24 rounded-2xl border-4 border-[#151515] shadow-2xl bg-[#151515] group-hover:-translate-y-2 transition-transform">
+                                <div class="mb-1">
+                                    <h3 class="text-3xl font-bold">Levant</h3>
+                                    <span
+                                        class="px-3 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider border border-indigo-500/30 mt-1 inline-block">Owner</span>
+                                </div>
                             </div>
+
                             <p class="text-gray-300 mb-6 leading-relaxed" data-i18n="levant_desc">
                                 A friendly gaming server where people from different cultures, religions, and
                                 backgrounds come together. Co-founded with Malrimem, Joseph, and SkaiTo. No toxicity,
@@ -213,7 +223,7 @@
                             </p>
                             <div class="flex gap-4">
                                 <a href="https://discord.gg/FBzNjDpMwa" target="_blank"
-                                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold text-center transition-colors">
+                                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold text-center transition-colors shadow-lg shadow-indigo-600/20">
                                     Join Server
                                 </a>
                                 <a href="https://lilzeng1.github.io/Levant/" target="_blank"
@@ -224,28 +234,32 @@
                         </div>
                     </div>
 
-                    <div class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#151515]">
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/90 z-10"></div>
-                        <div
-                            class="h-64 bg-red-900/40 w-full flex items-center justify-center relative overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-br from-red-600/20 to-orange-600/20"></div>
-                            <h3
-                                class="text-4xl font-black text-white/10 tracking-widest scale-150 group-hover:scale-100 transition-transform duration-700">
-                                SYRIA</h3>
+                    <div
+                        class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#151515] hover:border-red-500/50 transition-all duration-500">
+                        <div class="h-64 w-full relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#151515] to-transparent z-10"></div>
+                            <img src="Assets/SyriaBanner.png" alt="Syria Banner"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                         </div>
+
                         <div class="relative z-20 p-8 mt-[-60px]">
-                            <div class="flex justify-between items-end mb-4">
-                                <h3 class="text-3xl font-bold">Syria Community</h3>
-                                <span
-                                    class="px-3 py-1 bg-gray-500/20 text-gray-300 rounded-lg text-xs font-bold uppercase tracking-wider border border-gray-500/30">Contributor</span>
+                            <div class="flex items-end gap-5 mb-6">
+                                <img src="Assets/SyriaLogo.png" alt="Syria Logo"
+                                    class="w-24 h-24 rounded-2xl border-4 border-[#151515] shadow-2xl bg-[#151515] group-hover:-translate-y-2 transition-transform">
+                                <div class="mb-1">
+                                    <h3 class="text-3xl font-bold">Syria</h3>
+                                    <span
+                                        class="px-3 py-0.5 bg-gray-500/20 text-gray-300 rounded-full text-xs font-bold uppercase tracking-wider border border-gray-500/30 mt-1 inline-block">Contributor</span>
+                                </div>
                             </div>
+
                             <p class="text-gray-300 mb-6 leading-relaxed" data-i18n="syria_desc">
                                 A public community server representing Syria. I created a fan website for this community
                                 to show my support. I am a member here, contributing to the digital presence.
                             </p>
                             <div class="flex gap-4">
                                 <a href="https://discord.gg/ekHgfYs4eA" target="_blank"
-                                    class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold text-center transition-colors">
+                                    class="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold text-center transition-colors shadow-lg shadow-red-600/20">
                                     Join Server
                                 </a>
                                 <a href="https://lilzeng1.github.io/Syria/" target="_blank"
