@@ -11,7 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="Public/Style/index.css">
+    <link rel="stylesheet" href="Style/index.css">
     <script>
         tailwind.config = {
             theme: {
@@ -50,9 +50,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center gap-3">
-                    <img src="Public/Assets/GeorgeAvatar.png" alt="George Arshed"
+                    <img src="Assets/GeorgeAvatar.png" alt="George Arshed"
                         class="w-10 h-10 rounded-full border border-white/20 object-cover shadow-lg hover:scale-110 transition-transform">
-                    <span class="font-display font-bold text-xl tracking-tight hidden sm:block">George Arshed</span>
+                    <div class="flex flex-col leading-none">
+                        <span class="font-display font-bold text-lg tracking-tight">George Arshed</span>
+                        <span class="text-[10px] text-gray-500 font-medium tracking-widest uppercase">He / Him</span>
+                    </div>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
@@ -98,7 +101,7 @@
                     <div
                         class="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
                     </div>
-                    <img src="Public/Assets/GeorgeAvatar.png" alt="George Arshed"
+                    <img src="Assets/GeorgeAvatar.png"
                         class="relative w-32 h-32 rounded-full border-4 border-[#0f0f11] object-cover shadow-2xl mx-auto">
                 </div>
                 <div
@@ -115,8 +118,8 @@
                     18 years old. Transforming ideas into business reality. Mastering Flutter, Node.js, and the Web to
                     achieve financial freedom.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-200">
-                    <a href="#projects"
+                <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up delay-200">
+                    <a href="#contact"
                         class="group relative px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300 overflow-hidden">
                         <span class="relative z-10" data-i18n="btn_work">Let's Build Something</span>
                         <div
@@ -128,7 +131,11 @@
                     </a>
                     <a href="https://discord.gg/FBzNjDpMwa" target="_blank"
                         class="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-lg hover:bg-white/10 hover:scale-105 transition-all backdrop-blur-md flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-discord text-indigo-400"></i> Levant Discord
+                        <i class="fa-brands fa-discord text-indigo-400"></i> Levant
+                    </a>
+                    <a href="https://instagram.com/lilzeng1" target="_blank"
+                        class="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-bold text-lg hover:bg-white/10 hover:scale-105 transition-all backdrop-blur-md flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-instagram text-pink-500"></i> @lilzeng1
                     </a>
                 </div>
             </div>
@@ -138,7 +145,6 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="text-4xl md:text-5xl font-display font-bold mb-16 text-center" data-i18n="about_title">About
                     Me</h2>
-
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div
                         class="bg-glass border border-glassBorder p-8 rounded-3xl backdrop-blur-md hover:border-pink-500/30 transition-all duration-300 group">
@@ -161,7 +167,6 @@
                                 class="px-3 py-1 bg-sky-500/10 border border-sky-500/20 text-sky-300 rounded-lg text-xs font-bold">Tailwind</span>
                         </div>
                     </div>
-
                     <div
                         class="bg-glass border border-glassBorder p-8 rounded-3xl backdrop-blur-md hover:border-amber-500/30 transition-all duration-300 group">
                         <div
@@ -174,7 +179,6 @@
                             assets. Future company owner.
                         </p>
                     </div>
-
                     <div
                         class="bg-glass border border-glassBorder p-8 rounded-3xl backdrop-blur-md hover:border-green-500/30 transition-all duration-300 group">
                         <div
@@ -195,19 +199,17 @@
             <div class="max-w-7xl mx-auto">
                 <h2 class="text-4xl md:text-5xl font-display font-bold mb-16 text-center" data-i18n="projects_title">
                     Ventures</h2>
-
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     <div
                         class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#151515] hover:border-indigo-500/50 transition-all duration-500">
                         <div class="h-64 w-full relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#151515] to-transparent z-10"></div>
-                            <img src="Public/Assets/Levant-Banner.gif" alt="Levant Banner"
+                            <img src="Assets/Levant-Banner.gif" alt="Levant Banner"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                         </div>
-
                         <div class="relative z-20 p-8 mt-[-60px]">
                             <div class="flex items-end gap-5 mb-6">
-                                <img src="Public/Assets/Levant-Logo.png" alt="Levant Logo"
+                                <img src="Assets/Levant-Logo.png" alt="Levant Logo"
                                     class="w-24 h-24 rounded-2xl border-4 border-[#151515] shadow-2xl bg-[#151515] group-hover:-translate-y-2 transition-transform">
                                 <div class="mb-1">
                                     <h3 class="text-3xl font-bold">Levant</h3>
@@ -215,7 +217,6 @@
                                         class="px-3 py-0.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider border border-indigo-500/30 mt-1 inline-block">Owner</span>
                                 </div>
                             </div>
-
                             <p class="text-gray-300 mb-6 leading-relaxed" data-i18n="levant_desc">
                                 A friendly gaming server where people from different cultures, religions, and
                                 backgrounds come together. Co-founded with Malrimem, Joseph, and SkaiTo. No toxicity,
@@ -228,23 +229,21 @@
                                 </a>
                                 <a href="https://lilzeng1.github.io/Levant/" target="_blank"
                                     class="flex-1 bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-semibold text-center transition-colors backdrop-blur-md border border-white/10">
-                                    Visit Website
+                                    Website
                                 </a>
                             </div>
                         </div>
                     </div>
-
                     <div
                         class="group relative rounded-3xl overflow-hidden border border-white/10 bg-[#151515] hover:border-red-500/50 transition-all duration-500">
                         <div class="h-64 w-full relative overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#151515] to-transparent z-10"></div>
-                            <img src="Public/Assets/SyriaBanner.png" alt="Syria Banner"
+                            <img src="Assets/SyriaBanner.png" alt="Syria Banner"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
                         </div>
-
                         <div class="relative z-20 p-8 mt-[-60px]">
                             <div class="flex items-end gap-5 mb-6">
-                                <img src="Public/Assets/SyriaLogo.png" alt="Syria Logo"
+                                <img src="Assets/SyriaLogo.png" alt="Syria Logo"
                                     class="w-24 h-24 rounded-2xl border-4 border-[#151515] shadow-2xl bg-[#151515] group-hover:-translate-y-2 transition-transform">
                                 <div class="mb-1">
                                     <h3 class="text-3xl font-bold">Syria</h3>
@@ -252,7 +251,6 @@
                                         class="px-3 py-0.5 bg-gray-500/20 text-gray-300 rounded-full text-xs font-bold uppercase tracking-wider border border-gray-500/30 mt-1 inline-block">Contributor</span>
                                 </div>
                             </div>
-
                             <p class="text-gray-300 mb-6 leading-relaxed" data-i18n="syria_desc">
                                 A public community server representing Syria. I created a fan website for this community
                                 to show my support. I am a member here, contributing to the digital presence.
@@ -264,7 +262,7 @@
                                 </a>
                                 <a href="https://lilzeng1.github.io/Syria/" target="_blank"
                                     class="flex-1 bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-semibold text-center transition-colors backdrop-blur-md border border-white/10">
-                                    Visit Website
+                                    Website
                                 </a>
                             </div>
                         </div>
@@ -274,14 +272,46 @@
         </section>
 
         <section id="contact" class="py-20 px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-4xl md:text-5xl font-display font-bold mb-8">Ready for the Next Step?</h2>
-                <p class="text-xl text-gray-400 mb-10">Let's discuss business, code, or community growth.</p>
-                <div class="flex justify-center gap-6">
-                    <a href="mailto:contact@georgearshed.com"
-                        class="px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-transform">
-                        Contact Me
-                    </a>
+            <div class="max-w-4xl mx-auto">
+                <div
+                    class="bg-glass border border-glassBorder rounded-[40px] p-10 backdrop-blur-xl relative overflow-hidden">
+                    <div class="relative z-10 text-center">
+                        <h2 class="text-4xl md:text-5xl font-display font-bold mb-8">Get In Touch</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                            <a href="mailto:lilzeng1@outlook.com"
+                                class="flex items-center gap-4 p-6 bg-white/5 rounded-3xl border border-white/5 hover:bg-white/10 transition-all group">
+                                <div
+                                    class="w-12 h-12 bg-blue-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-envelope text-blue-400 text-xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Email</p>
+                                    <p class="text-sm font-medium">lilzeng1@outlook.com</p>
+                                </div>
+                            </a>
+                            <div
+                                class="flex items-center gap-4 p-6 bg-white/5 rounded-3xl border border-white/5 group transition-all">
+                                <div
+                                    class="w-12 h-12 bg-indigo-500/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-brands fa-discord text-indigo-400 text-xl"></i>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-xs text-gray-500 uppercase font-bold tracking-widest">Discord</p>
+                                    <p class="text-sm font-medium">@lilzeng1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center gap-4">
+                            <a href="https://instagram.com/lilzeng1" target="_blank"
+                                class="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-pink-500/20 hover:border-pink-500/50 transition-all text-2xl">
+                                <i class="fa-brands fa-instagram text-pink-500"></i>
+                            </a>
+                            <a href="https://github.com/LilZeng1" target="_blank"
+                                class="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center hover:bg-white/10 transition-all text-2xl">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -313,24 +343,11 @@
 
     <footer class="border-t border-white/10 bg-black/40 backdrop-blur-lg py-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center gap-6 mb-8">
-                <a href="#"
-                    class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 hover:-translate-y-2 transition-all">
-                    <i class="fa-brands fa-github text-xl"></i>
-                </a>
-                <a href="#"
-                    class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 hover:-translate-y-2 transition-all">
-                    <i class="fa-brands fa-instagram text-xl"></i>
-                </a>
-                <a href="#"
-                    class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/20 hover:-translate-y-2 transition-all">
-                    <i class="fa-envelope fa-solid text-xl"></i>
-                </a>
-            </div>
-            <p class="text-gray-500 text-sm">© 2024 George Arshed. Built in Damascus.</p>
+            <p class="text-gray-500 text-sm">© 2024 George Arshed. Built in Damascus with <i
+                    class="fa-solid fa-heart text-red-500"></i></p>
         </div>
     </footer>
 
-    <script src="Public/Scripts/index.js"></script>
+    <script src="Scripts/index.js"></script>
 </body>
 </html>
