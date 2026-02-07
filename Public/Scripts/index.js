@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playIcon.classList.remove('fa-pause');
             playIcon.classList.add('fa-play');
         } else {
-            audioPlayer.play().catch(e => console.log("Audio play failed interaction needed"));
+            audioPlayer.play().catch(e => console.log("Interaction needed"));
             playIcon.classList.remove('fa-play');
             playIcon.classList.add('fa-pause');
         }
