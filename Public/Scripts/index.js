@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const scrollProgress = document.getElementById('scrollProgress');
     const navbar = document.getElementById('navbar');
+
     window.addEventListener('scroll', () => {
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = (window.scrollY / totalHeight) * 100;
@@ -78,25 +79,31 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             nav_home: "Home", nav_about: "About", nav_projects: "Ventures", nav_contact: "Contact",
             about_title: "ABOUT ME", skill_title: "Tech Arsenal", skill_desc: "Mastering the tools of tomorrow.",
-            goal_title: "Vision", goal_desc: "Execution is everything.", projects_title: "VENTURES"
+            goal_title: "Vision", goal_desc: "Execution is everything.", projects_title: "VENTURES",
+            btn_work: "View Work"
         },
         tr: {
             nav_home: "Anasayfa", nav_about: "Hakkımda", nav_projects: "Girişimler", nav_contact: "İletişim",
             about_title: "HAKKIMDA", skill_title: "Teknoloji Cephaneliği", skill_desc: "Yarının araçlarında ustalaşmak.",
-            goal_title: "Vizyon", goal_desc: "Uygulama her şeydir.", projects_title: "GİRİŞİMLER"
+            goal_title: "Vizyon", goal_desc: "Uygulama her şeydir.", projects_title: "GİRİŞİMLER",
+            btn_work: "Çalışmaları Gör"
         },
         ar: {
             nav_home: "الرئيسية", nav_about: "من أنا", nav_projects: "مشاريعي", nav_contact: "تواصل",
             about_title: "من أنا", skill_title: "ترسانة التقنيات", skill_desc: "إتقان أدوات المستقبل.",
-            goal_title: "الرؤية", goal_desc: "التنفيذ هو كل شيء.", projects_title: "مشاريعي"
+            goal_title: "الرؤية", goal_desc: "التنفيذ هو كل شيء.", projects_title: "مشاريعي",
+            btn_work: "عرض أعمالي"
         }
     };
 
     window.changeLang = function (lang) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (translations[lang][key]) el.textContent = translations[lang][key];
+            if (translations[lang] && translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
         });
+        document.getElementById('currentLang').textContent = lang.toUpperCase();
         document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
         document.body.style.fontFamily = lang === 'ar' ? 'Tahoma, sans-serif' : "'Space Grotesk', sans-serif";
     };
