@@ -2,22 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const scrollProgress = document.getElementById('scrollProgress');
     const navbar = document.getElementById('navbar');
+    const navContainer = document.getElementById('navContainer');
 
     window.addEventListener('scroll', () => {
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = (window.scrollY / totalHeight) * 100;
         scrollProgress.style.width = `${progress}%`;
 
-        if (window.scrollY > 50) {
-            navbar.classList.add('bg-dark/80', 'backdrop-blur-2xl', 'h-20', 'border-b', 'border-white/5');
-            navbar.querySelector('.max-w-7xl').classList.replace('h-24', 'h-20');
+        if (window.scrollY > 80) {
+            navbar.classList.add('bg-dark/80', 'backdrop-blur-3xl', 'border-b', 'border-white/5');
+            navContainer.classList.replace('h-24', 'h-20');
         } else {
-            navbar.classList.remove('bg-dark/80', 'backdrop-blur-2xl', 'h-20', 'border-b', 'border-white/5');
-            navbar.querySelector('.max-w-7xl').classList.replace('h-20', 'h-24');
+            navbar.classList.remove('bg-dark/80', 'backdrop-blur-3xl', 'border-b', 'border-white/5');
+            navContainer.classList.replace('h-20', 'h-24');
         }
     });
 
-    const typeText = ["Flutter Developer", "Node.js Expert", "Digital Architect", "Founder of Levant"];
+    const typeText = ["Flutter Developer", "Node.js Architect", "UI/UX Visionary", "Founder of Levant", "Digital Empire Builder"];
     let count = 0, index = 0, isDeleting = false;
     const typeWriterElement = document.getElementById('typewriter');
 
@@ -29,11 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
             typeWriterElement.textContent = current.substring(0, index++);
         }
 
-        let speed = isDeleting ? 50 : 150;
+        let speed = isDeleting ? 40 : 120;
 
         if (!isDeleting && index === current.length + 1) {
             isDeleting = true;
-            speed = 2000;
+            speed = 2500;
         } else if (isDeleting && index === 0) {
             isDeleting = false;
             count++;
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const target = parseInt(entry.target.getAttribute('data-target'));
                 let current = 0;
-                const increment = target / 50;
+                const increment = target / 60;
                 const update = () => {
                     if (current < target) {
                         current += increment;
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.counter').forEach(c => observer.observe(c));
 
@@ -78,20 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         en: {
             nav_home: "Home", nav_about: "About", nav_projects: "Ventures", nav_contact: "Contact",
-            about_title: "ABOUT ME", skill_title: "Tech Arsenal", skill_desc: "Mastering the tools of tomorrow.",
-            goal_title: "Vision", goal_desc: "Execution is everything.", projects_title: "VENTURES",
+            about_title: "ABOUT ME", skill_title: "Tech Arsenal", skill_desc: "Modern tools for modern problems.",
+            goal_title: "Vision", goal_desc: "Scaling digital presence globally.", projects_title: "VENTURES",
             btn_work: "View Work"
         },
         tr: {
             nav_home: "Anasayfa", nav_about: "Hakkımda", nav_projects: "Girişimler", nav_contact: "İletişim",
-            about_title: "HAKKIMDA", skill_title: "Teknoloji Cephaneliği", skill_desc: "Yarının araçlarında ustalaşmak.",
-            goal_title: "Vizyon", goal_desc: "Uygulama her şeydir.", projects_title: "GİRİŞİMLER",
+            about_title: "HAKKIMDA", skill_title: "Teknoloji Cephaneliği", skill_desc: "Modern sorunlar için modern araçlar.",
+            goal_title: "Vizyon", goal_desc: "Dijital varlığı küresel ölçekte büyütmek.", projects_title: "GİRİŞİMLER",
             btn_work: "Çalışmaları Gör"
         },
         ar: {
             nav_home: "الرئيسية", nav_about: "من أنا", nav_projects: "مشاريعي", nav_contact: "تواصل",
-            about_title: "من أنا", skill_title: "ترسانة التقنيات", skill_desc: "إتقان أدوات المستقبل.",
-            goal_title: "الرؤية", goal_desc: "التنفيذ هو كل شيء.", projects_title: "مشاريعي",
+            about_title: "من أنا", skill_title: "ترسانة التقنيات", skill_desc: "أدوات حديثة لمشاكل حديثة.",
+            goal_title: "الرؤية", goal_desc: "توسيع الوجود الرقمي عالمياً.", projects_title: "مشاريعي",
             btn_work: "عرض أعمالي"
         }
     };
@@ -109,9 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-        max: 10,
-        speed: 400,
+        max: 8,
+        speed: 600,
         glare: true,
-        "max-glare": 0.1
+        "max-glare": 0.15,
+        perspective: 1500
     });
 });
