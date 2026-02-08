@@ -1,20 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const cursor = document.getElementById('custom-cursor');
     const scrollProgress = document.getElementById('scrollProgress');
     const navbar = document.getElementById('navbar');
-
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    const hoverables = document.querySelectorAll('a, button, [data-tilt], .group');
-    hoverables.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
-    });
-
     window.addEventListener('scroll', () => {
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = (window.scrollY / totalHeight) * 100;
