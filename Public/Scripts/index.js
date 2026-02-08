@@ -1,164 +1,123 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const cursor = document.getElementById('custom-cursor');
     const scrollProgress = document.getElementById('scrollProgress');
     const navbar = document.getElementById('navbar');
 
-    let ticking = false;
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    const hoverables = document.querySelectorAll('a, button, [data-tilt], .group');
+    hoverables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    });
 
     window.addEventListener('scroll', () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const totalHeight = document.body.scrollHeight - window.innerHeight;
-                const progress = (window.scrollY / totalHeight) * 100;
-                scrollProgress.style.width = `${progress}%`;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        scrollProgress.style.width = `${progress}%`;
 
-                if (window.scrollY > 20) {
-                    navbar.classList.add('glass-nav');
-                } else {
-                    navbar.classList.remove('glass-nav');
-                }
-                ticking = false;
-            });
-            ticking = true;
+        if (window.scrollY > 50) {
+            navbar.classList.add('bg-dark/80', 'backdrop-blur-2xl', 'h-20', 'border-b', 'border-white/5');
+            navbar.querySelector('.max-w-7xl').classList.replace('h-24', 'h-20');
+        } else {
+            navbar.classList.remove('bg-dark/80', 'backdrop-blur-2xl', 'h-20', 'border-b', 'border-white/5');
+            navbar.querySelector('.max-w-7xl').classList.replace('h-20', 'h-24');
         }
     });
 
-    const typeText = ["Flutter Developer", "Node.js Expert", "Entrepreneur", "Web Designer"];
-    let count = 0;
-    let index = 0;
-    let currentText = "";
-    let letter = "";
+    const typeText = ["Flutter Developer", "Node.js Expert", "Digital Architect", "Founder of Levant"];
+    let count = 0, index = 0, isDeleting = false;
     const typeWriterElement = document.getElementById('typewriter');
 
-    (function type() {
-        if (count === typeText.length) {
-            count = 0;
-        }
-        currentText = typeText[count];
-        letter = currentText.slice(0, ++index);
-
-        typeWriterElement.textContent = letter;
-        if (letter.length === currentText.length) {
-            count++;
-            index = 0;
-            setTimeout(type, 2000);
+    function type() {
+        const current = typeText[count % typeText.length];
+        if (isDeleting) {
+            typeWriterElement.textContent = current.substring(0, index--);
         } else {
-            setTimeout(type, 100);
+            typeWriterElement.textContent = current.substring(0, index++);
         }
-    }());
 
-    const counters = document.querySelectorAll('.counter');
-    const observerOptions = {
-        root: null,
-        threshold: 0.1
-    };
+        let speed = isDeleting ? 50 : 150;
+
+        if (!isDeleting && index === current.length + 1) {
+            isDeleting = true;
+            speed = 2000;
+        } else if (isDeleting && index === 0) {
+            isDeleting = false;
+            count++;
+            speed = 500;
+        }
+
+        setTimeout(type, speed);
+    }
+    type();
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.getAttribute('data-target'));
-                let count = 0;
-                const updateCount = () => {
-                    const increment = target / 30;
-                    if (count < target) {
-                        count += increment;
-                        counter.innerText = Math.ceil(count);
-                        requestAnimationFrame(updateCount);
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                let current = 0;
+                const increment = target / 50;
+                const update = () => {
+                    if (current < target) {
+                        current += increment;
+                        entry.target.innerText = Math.ceil(current);
+                        requestAnimationFrame(update);
                     } else {
-                        counter.innerText = target;
+                        entry.target.innerText = target;
                     }
                 };
-                updateCount();
-                observer.unobserve(counter);
+                update();
+                observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.5 });
 
-    counters.forEach(counter => observer.observe(counter));
+    document.querySelectorAll('.counter').forEach(c => observer.observe(c));
 
     window.toggleMobileMenu = function () {
         const menu = document.getElementById('mobileMenu');
         menu.classList.toggle('translate-x-full');
     };
 
-    document.getElementById('mobileMenuBtn').addEventListener('click', toggleMobileMenu);
-    document.getElementById('closeMenuBtn').addEventListener('click', toggleMobileMenu);
+    document.getElementById('mobileMenuBtn').onclick = toggleMobileMenu;
+    document.getElementById('closeMenuBtn').onclick = toggleMobileMenu;
 
     const translations = {
         en: {
-            nav_home: "Home",
-            nav_about: "About",
-            nav_projects: "Ventures",
-            nav_contact: "Contact",
-            btn_work: "View Work",
-            about_title: "About Me",
-            skill_title: "Tech Stack",
-            skill_desc: "Building scalable applications with robust technologies.",
-            goal_title: "Vision",
-            goal_desc: "My goal is financial freedom. I don't just write code; I build businesses.",
-            community_title: "Leadership",
-            community_desc: "Leading the Levant Server. Managing communities and fostering growth.",
-            projects_title: "Ventures",
-            levant_desc: "A friendly gaming server where people from different cultures come together.",
-            syria_desc: "A public community server representing Syria. Fan website created for support."
+            nav_home: "Home", nav_about: "About", nav_projects: "Ventures", nav_contact: "Contact",
+            about_title: "ABOUT ME", skill_title: "Tech Arsenal", skill_desc: "Mastering the tools of tomorrow.",
+            goal_title: "Vision", goal_desc: "Execution is everything.", projects_title: "VENTURES"
         },
         tr: {
-            nav_home: "Anasayfa",
-            nav_about: "Hakkımda",
-            nav_projects: "Girişimler",
-            nav_contact: "İletişim",
-            btn_work: "İşlerimi Gör",
-            about_title: "Hakkımda",
-            skill_title: "Teknolojiler",
-            skill_desc: "Güçlü teknolojilerle ölçeklenebilir uygulamalar geliştiriyorum.",
-            goal_title: "Vizyon",
-            goal_desc: "Hedefim finansal özgürlük. Sadece kod yazmıyorum; iş inşa ediyorum.",
-            community_title: "Liderlik",
-            community_desc: "Levant Sunucusu liderliği. Toplulukları yönetiyor ve büyütüyorum.",
-            projects_title: "Girişimler",
-            levant_desc: "Farklı kültürlerden insanların bir araya geldiği dostane bir oyun sunucusu.",
-            syria_desc: "Suriye'yi temsil eden topluluk sunucusu. Destek amaçlı hayran sitesi."
+            nav_home: "Anasayfa", nav_about: "Hakkımda", nav_projects: "Girişimler", nav_contact: "İletişim",
+            about_title: "HAKKIMDA", skill_title: "Teknoloji Cephaneliği", skill_desc: "Yarının araçlarında ustalaşmak.",
+            goal_title: "Vizyon", goal_desc: "Uygulama her şeydir.", projects_title: "GİRİŞİMLER"
         },
         ar: {
-            nav_home: "الرئيسية",
-            nav_about: "حولي",
-            nav_projects: "مشاريعي",
-            nav_contact: "تواصل",
-            btn_work: "أعمالي",
-            about_title: "من أنا",
-            skill_title: "التقنيات",
-            skill_desc: "بناء تطبيقات قابلة للتطوير باستخدام تقنيات قوية.",
-            goal_title: "الرؤية",
-            goal_desc: "هدفي الحرية المالية. أنا أبني أعمالاً وليس مجرد كود.",
-            community_title: "القيادة",
-            community_desc: "قيادة سيرفر Levant وإدارة المجتمعات.",
-            projects_title: "مشاريعي",
-            levant_desc: "خادم ألعاب ودي يجمع ثقافات مختلفة.",
-            syria_desc: "خادم مجتمعي يمثل سوريا. موقع داعم للمجتمع."
+            nav_home: "الرئيسية", nav_about: "من أنا", nav_projects: "مشاريعي", nav_contact: "تواصل",
+            about_title: "من أنا", skill_title: "ترسانة التقنيات", skill_desc: "إتقان أدوات المستقبل.",
+            goal_title: "الرؤية", goal_desc: "التنفيذ هو كل شيء.", projects_title: "مشاريعي"
         }
     };
 
     window.changeLang = function (lang) {
-        const elements = document.querySelectorAll('[data-i18n]');
-        elements.forEach(el => {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
-            if (translations[lang] && translations[lang][key]) {
-                el.childNodes.forEach(node => {
-                    if (node.nodeType === 3 && node.nodeValue.trim() !== '') {
-                        node.nodeValue = translations[lang][key];
-                    }
-                });
-            }
+            if (translations[lang][key]) el.textContent = translations[lang][key];
         });
-        document.getElementById('currentLang').textContent = lang.toUpperCase();
-
-        if (lang === 'ar') {
-            document.body.dir = 'rtl';
-            document.body.style.fontFamily = "'Tahoma', sans-serif";
-        } else {
-            document.body.dir = 'ltr';
-            document.body.style.fontFamily = "'Space Grotesk', sans-serif";
-        }
+        document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.body.style.fontFamily = lang === 'ar' ? 'Tahoma, sans-serif' : "'Space Grotesk', sans-serif";
     };
+
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+        max: 10,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.1
+    });
 });
