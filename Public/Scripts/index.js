@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     const scrollProgress = document.getElementById('scrollProgress');
     const navbar = document.getElementById('navbar');
     const navContainer = document.getElementById('navContainer');
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             count++;
             speed = 500;
         }
-
         setTimeout(type, speed);
     }
     type();
@@ -79,21 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         en: {
             nav_home: "Home", nav_about: "About", nav_projects: "Ventures", nav_contact: "Contact",
-            about_title: "ABOUT ME", skill_title: "Tech Arsenal", skill_desc: "Modern tools for modern problems.",
-            goal_title: "Vision", goal_desc: "Scaling digital presence globally.", projects_title: "VENTURES",
-            btn_work: "View Work"
+            about_title: "ABOUT ME", skill_title: "Tech Arsenal", goal_title: "Vision",
+            goal_desc: "Scaling digital presence globally.", projects_title: "VENTURES", btn_work: "View Work"
         },
         tr: {
             nav_home: "Anasayfa", nav_about: "Hakkımda", nav_projects: "Girişimler", nav_contact: "İletişim",
-            about_title: "HAKKIMDA", skill_title: "Teknoloji Cephaneliği", skill_desc: "Modern sorunlar için modern araçlar.",
-            goal_title: "Vizyon", goal_desc: "Dijital varlığı küresel ölçekte büyütmek.", projects_title: "GİRİŞİMLER",
-            btn_work: "Çalışmaları Gör"
+            about_title: "HAKKIMDA", skill_title: "Teknoloji Cephaneliği", goal_title: "Vizyon",
+            goal_desc: "Dijital varlığı küresel ölçekte büyütmek.", projects_title: "GİRİŞİMLER", btn_work: "Çalışmaları Gör"
         },
         ar: {
             nav_home: "الرئيسية", nav_about: "من أنا", nav_projects: "مشاريعي", nav_contact: "تواصل",
-            about_title: "من أنا", skill_title: "ترسانة التقنيات", skill_desc: "أدوات حديثة لمشاكل حديثة.",
-            goal_title: "الرؤية", goal_desc: "توسيع الوجود الرقمي عالمياً.", projects_title: "مشاريعي",
-            btn_work: "عرض أعمالي"
+            about_title: "من أنا", skill_title: "ترسانة التقنيات", goal_title: "الرؤية",
+            goal_desc: "توسيع الوجود الرقمي عالمياً.", projects_title: "مشاريعي", btn_work: "عرض أعمالي"
         }
     };
 
