@@ -23,9 +23,6 @@
                         accent: "#06b6d4",
                         dark: "#050505",
                         surface: "#0f0f11"
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
                     }
                 }
             }
@@ -35,237 +32,302 @@
 <body class="bg-dark text-white overflow-x-hidden antialiased selection:bg-primary selection:text-white">
 
     <div class="noise-bg"></div>
+    <div class="hero-glow"></div>
 
-    <div class="fixed top-0 left-0 w-full h-0.5 z-[60]">
+    <div class="fixed top-0 left-0 w-full h-[2px] z-[70]">
         <div id="scrollProgress"
-            class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 transition-all duration-100 ease-out">
-        </div>
+            class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 shadow-[0_0_10px_#8b5cf6]"></div>
     </div>
 
-    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px] opacity-40">
-        </div>
-        <div
-            class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px] opacity-40">
-        </div>
-    </div>
-
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-3">
-                    <img src="Public/Assets/GeorgeAvatar.png"
-                        onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=0D8ABC&color=fff'"
-                        alt="George" class="w-10 h-10 rounded-full border border-white/10">
-                    <span class="font-display font-bold text-lg tracking-tight">George Arshed</span>
+    <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-24 transition-all duration-500" id="navContainer">
+                <div class="flex items-center gap-4 group">
+                    <div class="relative">
+                        <img src="Public/Assets/GeorgeAvatar.png"
+                            onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=8b5cf6&color=fff'"
+                            alt="George"
+                            class="w-11 h-11 rounded-full border-2 border-white/10 group-hover:border-primary/50 transition-colors">
+                        <div
+                            class="absolute inset-0 rounded-full bg-primary/20 blur group-hover:blur-md transition-all">
+                        </div>
+                    </div>
+                    <span class="font-display font-bold text-xl tracking-tighter">George Arshed</span>
                 </div>
 
                 <div
-                    class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-md">
+                    class="hidden md:flex items-center gap-2 bg-white/5 p-1.5 rounded-full border border-white/5 backdrop-blur-xl">
                     <a href="#home"
-                        class="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all"
+                        class="px-6 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
                         data-i18n="nav_home">Home</a>
                     <a href="#about"
-                        class="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all"
+                        class="px-6 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
                         data-i18n="nav_about">About</a>
                     <a href="#projects"
-                        class="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all"
+                        class="px-6 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
                         data-i18n="nav_projects">Ventures</a>
                     <a href="#contact"
-                        class="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all"
+                        class="px-6 py-2 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all"
                         data-i18n="nav_contact">Contact</a>
                 </div>
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
                     <div class="relative group">
                         <button
-                            class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-2 rounded-lg transition-all text-xs font-bold">
-                            <i class="fa-solid fa-globe text-gray-400"></i> <span id="currentLang">EN</span>
+                            class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-xl transition-all text-xs font-bold tracking-widest">
+                            <i class="fa-solid fa-earth-americas text-primary"></i> <span id="currentLang">EN</span>
                         </button>
                         <div
-                            class="absolute right-0 mt-2 w-32 bg-[#0f0f11] border border-white/10 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right z-50">
+                            class="absolute right-0 mt-3 w-40 bg-surface/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-right z-50 p-1">
                             <button onclick="changeLang('en')"
-                                class="block w-full text-left px-4 py-3 text-xs font-bold hover:bg-white/5 hover:text-primary transition-colors first:rounded-t-xl">ENGLISH</button>
+                                class="flex items-center justify-between w-full px-4 py-3 text-xs font-bold hover:bg-primary/10 hover:text-primary rounded-xl transition-all">ENGLISH
+                                <span>US</span></button>
                             <button onclick="changeLang('tr')"
-                                class="block w-full text-left px-4 py-3 text-xs font-bold hover:bg-white/5 hover:text-primary transition-colors">TÜRKÇE</button>
+                                class="flex items-center justify-between w-full px-4 py-3 text-xs font-bold hover:bg-primary/10 hover:text-primary rounded-xl transition-all">TÜRKÇE
+                                <span>TR</span></button>
                             <button onclick="changeLang('ar')"
-                                class="block w-full text-left px-4 py-3 text-xs font-bold hover:bg-white/5 hover:text-primary transition-colors last:rounded-b-xl">العربية</button>
+                                class="flex items-center justify-between w-full px-4 py-3 text-xs font-bold hover:bg-primary/10 hover:text-primary rounded-xl transition-all">العربية
+                                <span>SY</span></button>
                         </div>
                     </div>
-
                     <button id="mobileMenuBtn"
-                        class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-white">
-                        <i class="fa-solid fa-bars"></i>
+                        class="md:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all">
+                        <i class="fa-solid fa-bars-staggered"></i>
                     </button>
                 </div>
             </div>
         </div>
-
-        <div id="mobileMenu"
-            class="fixed inset-0 bg-[#050505] z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col items-center justify-center gap-8">
-            <button id="closeMenuBtn"
-                class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <a href="#home" class="text-3xl font-display font-bold hover:text-primary transition-colors"
-                onclick="toggleMobileMenu()">Home</a>
-            <a href="#about" class="text-3xl font-display font-bold hover:text-primary transition-colors"
-                onclick="toggleMobileMenu()">About</a>
-            <a href="#projects" class="text-3xl font-display font-bold hover:text-primary transition-colors"
-                onclick="toggleMobileMenu()">Ventures</a>
-            <a href="#contact" class="text-3xl font-display font-bold hover:text-primary transition-colors"
-                onclick="toggleMobileMenu()">Contact</a>
-        </div>
     </nav>
 
-    <main class="relative">
-        <section id="home" class="min-h-screen flex items-center justify-center relative px-4 pt-20">
-            <div class="text-center max-w-4xl mx-auto z-10">
+    <div id="mobileMenu"
+        class="fixed inset-0 bg-dark/98 backdrop-blur-3xl z-40 transform translate-x-full transition-transform duration-500 md:hidden flex flex-col items-center justify-center gap-10">
+        <button id="closeMenuBtn"
+            class="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/5 text-white">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+        <a href="#home" class="text-4xl font-display font-black hover:text-primary transition-all"
+            onclick="toggleMobileMenu()">Home</a>
+        <a href="#about" class="text-4xl font-display font-black hover:text-primary transition-all"
+            onclick="toggleMobileMenu()">About</a>
+        <a href="#projects" class="text-4xl font-display font-black hover:text-primary transition-all"
+            onclick="toggleMobileMenu()">Ventures</a>
+        <a href="#contact" class="text-4xl font-display font-black hover:text-primary transition-all"
+            onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <main>
+        <section id="home" class="min-h-screen flex items-center justify-center relative px-6">
+            <div class="text-center max-w-5xl mx-auto z-10">
                 <div
-                    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 mb-8 animate-fade-in-up">
-                    <span class="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
-                    <span class="text-[10px] font-bold text-primary tracking-widest uppercase">Available for work</span>
+                    class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 mb-10 animate-fade-in-up">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="text-[11px] font-black text-primary tracking-[0.2em] uppercase">Building the
+                        Future</span>
                 </div>
 
                 <h1
-                    class="text-5xl md:text-7xl lg:text-8xl font-display font-black mb-6 tracking-tight leading-[1.1] animate-fade-in-up">
-                    Building Digital <br>
+                    class="text-6xl md:text-8xl lg:text-9xl font-display font-black mb-8 tracking-tighter leading-[0.9] animate-fade-in-up">
+                    Digital <br>
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-text">Empires.</span>
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-text">Mastery.</span>
                 </h1>
 
-                <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up">
-                    I'm <span class="text-white font-semibold">George</span>. <span id="typewriter"></span>
+                <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 animate-fade-in-up font-light">
+                    I'm <span
+                        class="text-white font-bold underline decoration-primary/40 underline-offset-4">George</span>.
+                    <span id="typewriter" class="text-white font-medium"></span><span
+                        class="animate-pulse text-primary">|</span>
                 </p>
 
-                <div class="flex flex-wrap justify-center gap-4 animate-fade-in-up">
+                <div class="flex flex-wrap justify-center gap-6 animate-fade-in-up">
                     <a href="#projects"
-                        class="px-8 py-4 bg-white text-black rounded-xl font-bold text-sm hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
-                        data-i18n="btn_work">
-                        View Work
-                    </a>
+                        class="px-10 py-5 bg-white text-black rounded-2xl font-black text-sm hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
+                        data-i18n="btn_work">View Work</a>
                     <a href="#contact"
-                        class="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-bold text-sm hover:bg-white/10 transition-colors"
-                        data-i18n="nav_contact">
-                        Contact Me
-                    </a>
+                        class="px-10 py-5 bg-white/5 border border-white/10 rounded-2xl font-black text-sm hover:bg-white/10 transition-all active:scale-95"
+                        data-i18n="nav_contact">Contact</a>
                 </div>
 
                 <div
-                    class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-white/5 pt-10 animate-fade-in-up">
-                    <div>
-                        <h4 class="text-3xl font-display font-bold text-white counter" data-target="18">0</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Age</p>
+                    class="grid grid-cols-2 md:grid-cols-4 gap-12 mt-24 border-t border-white/5 pt-12 animate-fade-in-up">
+                    <div class="group">
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-white counter" data-target="18">0
+                        </h4>
+                        <p
+                            class="text-[10px] text-gray-500 uppercase tracking-[0.3em] mt-2 group-hover:text-primary transition-colors">
+                            Age</p>
                     </div>
-                    <div>
-                        <h4 class="text-3xl font-display font-bold text-white counter" data-target="3">0</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Years Exp</p>
+                    <div class="group">
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-white counter" data-target="4">0
+                        </h4>
+                        <p
+                            class="text-[10px] text-gray-500 uppercase tracking-[0.3em] mt-2 group-hover:text-secondary transition-colors">
+                            Years Exp</p>
                     </div>
-                    <div>
-                        <h4 class="text-3xl font-display font-bold text-white counter" data-target="12">0</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Projects</p>
+                    <div class="group">
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-white counter" data-target="14">0
+                        </h4>
+                        <p
+                            class="text-[10px] text-gray-500 uppercase tracking-[0.3em] mt-2 group-hover:text-accent transition-colors">
+                            Projects</p>
                     </div>
-                    <div>
-                        <h4 class="text-3xl font-display font-bold text-white counter" data-target="2">0</h4>
-                        <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">Communities</p>
+                    <div class="group">
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-white counter" data-target="3">0
+                        </h4>
+                        <p
+                            class="text-[10px] text-gray-500 uppercase tracking-[0.3em] mt-2 group-hover:text-white transition-colors">
+                            Communities</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="about" class="py-24 px-4 relative">
+        <section id="about" class="py-32 px-6 relative">
             <div class="max-w-6xl mx-auto">
-                <div class="mb-16">
-                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-4" data-i18n="about_title">About Me</h2>
-                    <p class="text-gray-400 max-w-xl text-lg">Transforming ideas into business reality. Mastering the
-                        Web to achieve financial freedom.</p>
+                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <div class="max-w-2xl">
+                        <h2 class="text-4xl md:text-6xl font-display font-black mb-6 tracking-tighter"
+                            data-i18n="about_title">About Me</h2>
+                        <p class="text-gray-400 text-xl leading-relaxed">Architecting digital solutions from the ground
+                            up. Focused on performance, aesthetics, and user-centric business results.</p>
+                    </div>
+                    <div class="bg-primary/10 border border-primary/20 px-6 py-3 rounded-2xl backdrop-blur-md">
+                        <span class="text-primary font-bold text-sm tracking-widest uppercase">Based in Damascus,
+                            SY</span>
+                    </div>
                 </div>
 
                 <div class="bento-grid">
-                    <div class="bento-item-1 glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="bento-item-1 glass-card p-10 rounded-[2.5rem] relative overflow-hidden group" data-tilt>
                         <div class="relative z-10">
                             <div
-                                class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6 text-primary">
-                                <i class="fa-solid fa-code text-xl"></i>
+                                class="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center mb-8 text-primary shadow-inner">
+                                <i class="fa-solid fa-terminal text-2xl"></i>
                             </div>
-                            <h3 class="text-2xl font-bold mb-3 font-display" data-i18n="skill_title">Tech Stack</h3>
-                            <p class="text-gray-400 mb-6 text-sm" data-i18n="skill_desc">Building scalable applications.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
+                            <h3 class="text-3xl font-black mb-4 font-display" data-i18n="skill_title">Tech Stack</h3>
+                            <div class="flex flex-wrap gap-3">
                                 <span
-                                    class="px-3 py-1 bg-white/5 rounded-lg text-xs font-mono text-gray-300 border border-white/5">JavaScript</span>
+                                    class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold text-gray-300 border border-white/5 group-hover:border-primary/30 transition-all">JavaScript</span>
                                 <span
-                                    class="px-3 py-1 bg-white/5 rounded-lg text-xs font-mono text-gray-300 border border-white/5">Node.js</span>
+                                    class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold text-gray-300 border border-white/5 group-hover:border-primary/30 transition-all">Node.js</span>
                                 <span
-                                    class="px-3 py-1 bg-white/5 rounded-lg text-xs font-mono text-gray-300 border border-white/5">React</span>
+                                    class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold text-gray-300 border border-white/5 group-hover:border-primary/30 transition-all">Flutter</span>
                                 <span
-                                    class="px-3 py-1 bg-white/5 rounded-lg text-xs font-mono text-gray-300 border border-white/5">Tailwind</span>
+                                    class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold text-gray-300 border border-white/5 group-hover:border-primary/30 transition-all">React</span>
                                 <span
-                                    class="px-3 py-1 bg-white/5 rounded-lg text-xs font-mono text-gray-300 border border-white/5">HTML/CSS</span>
+                                    class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold text-gray-300 border border-white/5 group-hover:border-primary/30 transition-all">Tailwind</span>
+                                <span
+                                    class="px-4 py-2 bg-white/5 rounded-xl text-xs font-bold text-gray-300 border border-white/5 group-hover:border-primary/30 transition-all">MongoDB</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="bento-item-2 glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="bento-item-2 glass-card p-10 rounded-[2.5rem] relative overflow-hidden group" data-tilt>
                         <div
-                            class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center mb-6 text-amber-500">
-                            <i class="fa-solid fa-lightbulb text-xl"></i>
+                            class="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-8 text-amber-500 shadow-inner">
+                            <i class="fa-solid fa-chess-knight text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 font-display" data-i18n="goal_title">Vision</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="goal_desc">I don't just write code;
-                            I build digital assets and businesses.</p>
+                        <h3 class="text-2xl font-black mb-4 font-display" data-i18n="goal_title">Vision</h3>
+                        <p class="text-gray-400 text-base leading-relaxed" data-i18n="goal_desc">I don't just ship
+                            features; I build digital assets that create leverage.</p>
                     </div>
-
-                    <div class="bento-item-3 glass-card p-8 rounded-3xl relative overflow-hidden group">
+                    <div class="bento-item-3 glass-card p-10 rounded-[2.5rem] relative overflow-hidden group" data-tilt>
                         <div
-                            class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6 text-green-500">
-                            <i class="fa-solid fa-users text-xl"></i>
+                            class="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center mb-8 text-green-500 shadow-inner">
+                            <i class="fa-solid fa-bolt text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-2 font-display">Leadership</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">Leading communities and fostering growth across
-                            borders.</p>
+                        <h3 class="text-2xl font-black mb-4 font-display">Execution</h3>
+                        <p class="text-gray-400 text-base leading-relaxed">Moving at the speed of thought. Turning
+                            vision into reality with precision.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="py-24 px-4">
+        <section id="projects" class="py-32 px-6">
             <div class="max-w-6xl mx-auto">
-                <div class="mb-16">
-                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-4" data-i18n="projects_title">Ventures
-                    </h2>
-                    <p class="text-gray-400">Selected projects and communities.</p>
+                <div class="mb-20 text-center">
+                    <h2 class="text-4xl md:text-6xl font-display font-black mb-6 tracking-tighter uppercase"
+                        data-i18n="projects_title">Ventures</h2>
+                    <p class="text-gray-400 text-xl">Selected works and digital communities.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     <div
-                        class="group rounded-3xl bg-surface border border-white/5 overflow-hidden hover:border-white/10 transition-colors">
-                        <div class="h-64 overflow-hidden relative">
-                            <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent z-10"></div>
+                        class="group rounded-[3rem] bg-surface border border-white/5 overflow-hidden hover:border-primary/30 transition-all duration-500 shadow-2xl">
+                        <div class="h-80 overflow-hidden relative">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent z-10">
+                            </div>
                             <img src="Public/Assets/Levant-Banner.gif"
                                 onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXN6aG0xd3Z6aG0xd3Z6aG0xd3Z6aG0xd3Z6aG0xd3Z6aG0xdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1TVThqceK6M8M8e/giphy.gif'"
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 loading="lazy">
+                            <div
+                                class="absolute top-6 right-6 z-20 bg-indigo-600/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                                <span
+                                    class="text-[10px] font-black tracking-widest uppercase text-white">Co-Founder</span>
+                            </div>
                         </div>
-                        <div class="p-8 relative z-20 -mt-12">
-                            <div class="flex items-center gap-4 mb-4">
+                        <div class="p-10 relative z-20 -mt-20">
+                            <div class="flex items-end gap-6 mb-6">
                                 <img src="Public/Assets/Levant-Logo.png"
                                     onerror="this.src='https://ui-avatars.com/api/?name=Levant&background=6366f1&color=fff'"
-                                    class="w-16 h-16 rounded-xl border-4 border-surface shadow-lg">
-                                <div>
-                                    <h3 class="text-2xl font-display font-bold">Levant</h3>
-                                    <span
-                                        class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Co-Founder</span>
+                                    class="w-24 h-24 rounded-3xl border-4 border-surface shadow-2xl">
+                                <div class="pb-2">
+                                    <h3 class="text-3xl font-display font-black">Levant</h3>
+                                    <p class="text-indigo-400 text-sm font-bold tracking-widest">COMMUNITY</p>
                                 </div>
                             </div>
-                            <p class="text-gray-400 mb-6 text-sm leading-relaxed">A friendly gaming server where people
+                            <p class="text-gray-400 mb-8 text-lg leading-relaxed">A friendly gaming server where people
                                 from different cultures come together.</p>
-                            <div class="flex gap-3">
+                            <div class="flex gap-4">
                                 <a href="https://discord.gg/FBzNjDpMwa" target="_blank"
-                                    class="flex-1 py-3 rounded-lg font-bold text-center text-sm bg-white text-black hover:bg-gray-200 transition-colors">Join
+                                    class="flex-1 py-4 rounded-2xl font-black text-center text-sm bg-white text-black hover:bg-gray-200 transition-all active:scale-95">Join
                                     Discord</a>
                                 <a href="https://lilzeng1.github.io/Levant/" target="_blank"
-                                    class="flex-1 py-3 rounded-lg font-bold text-center text-sm bg-white/5 hover:bg-white/10 transition-colors">Website</a>
+                                    class="flex-1 py-4 rounded-2xl font-black text-center text-sm bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95">Website</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group rounded-[3rem] bg-surface border border-white/5 overflow-hidden hover:border-accent/30 transition-all duration-500 shadow-2xl">
+                        <div class="h-80 overflow-hidden relative">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent z-10">
+                            </div>
+                            <img src="Public/Assets/SyriaBanner.png"
+                                onerror="this.src='https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=1000'"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                loading="lazy">
+                            <div
+                                class="absolute top-6 right-6 z-20 bg-accent/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                                <span class="text-[10px] font-black tracking-widest uppercase text-white">Member</span>
+                            </div>
+                        </div>
+                        <div class="p-10 relative z-20 -mt-20">
+                            <div class="flex items-end gap-6 mb-6">
+                                <img src="Public/Assets/SyriaLogo.png"
+                                    onerror="this.src='https://ui-avatars.com/api/?name=Syria&background=06b6d4&color=fff'"
+                                    class="w-24 h-24 rounded-3xl border-4 border-surface shadow-2xl">
+                                <div class="pb-2">
+                                    <h3 class="text-3xl font-display font-black">Syria</h3>
+                                    <p class="text-accent text-sm font-bold tracking-widest">SOUL & GRIND</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 mb-8 text-lg leading-relaxed">Where ancient Syrian soul meets future
+                                chaos. No suits, no stiffness. Just us, the heritage, and the digital grind. Come hang
+                                out.</p>
+                            <div class="flex gap-4">
+                                <a href="https://discord.com/invite/qFDQG5aDJN" target="_blank"
+                                    class="flex-1 py-4 rounded-2xl font-black text-center text-sm bg-white text-black hover:bg-gray-200 transition-all active:scale-95">Join
+                                    Server</a>
+                                <a href="https://lilzeng1.github.io/Syria/" target="_blank"
+                                    class="flex-1 py-4 rounded-2xl font-black text-center text-sm bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95">Website</a>
                             </div>
                         </div>
                     </div>
@@ -273,34 +335,40 @@
             </div>
         </section>
 
-        <section id="contact" class="py-24 px-4">
-            <div class="max-w-3xl mx-auto">
+        <section id="contact" class="py-32 px-6">
+            <div class="max-w-4xl mx-auto">
                 <div
-                    class="bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-[2.5rem] p-8 md:p-12 text-center backdrop-blur-sm">
-                    <span class="text-accent font-bold tracking-widest uppercase text-xs mb-4 block">Let's
+                    class="bg-gradient-to-b from-white/5 to-transparent border border-white/10 rounded-[3rem] p-12 md:p-20 text-center backdrop-blur-xl relative overflow-hidden group">
+                    <div
+                        class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
+                    <span class="text-accent font-black tracking-[0.3em] uppercase text-xs mb-6 block">Let's
                         Connect</span>
-                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-8">Ready to start a project?</h2>
+                    <h2 class="text-4xl md:text-6xl font-display font-black mb-12 tracking-tighter">Ready to Build
+                        Something Great?</h2>
 
-                    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+                    <div class="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
                         <a href="mailto:lilzeng1@outlook.com"
-                            class="flex items-center gap-3 p-2 pr-6 bg-surface rounded-full border border-white/10 hover:border-white/20 transition-all">
-                            <div class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center text-white">
-                                <i class="fa-solid fa-envelope"></i>
+                            class="flex items-center gap-4 p-3 pr-10 bg-dark/50 rounded-2xl border border-white/10 hover:border-primary/50 transition-all hover:translate-y-[-4px]">
+                            <div
+                                class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center text-primary shadow-inner">
+                                <i class="fa-solid fa-envelope text-xl"></i>
                             </div>
                             <div class="text-left">
-                                <p class="text-[10px] text-gray-500 uppercase font-bold">Email</p>
-                                <p class="text-sm font-medium">lilzeng1@outlook.com</p>
+                                <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest">Direct Email
+                                </p>
+                                <p class="text-base font-bold">lilzeng1@outlook.com</p>
                             </div>
                         </a>
                         <a href="https://discord.gg/FBzNjDpMwa" target="_blank"
-                            class="flex items-center gap-3 p-2 pr-6 bg-surface rounded-full border border-white/10 hover:border-white/20 transition-all">
+                            class="flex items-center gap-4 p-3 pr-10 bg-dark/50 rounded-2xl border border-white/10 hover:border-[#5865F2]/50 transition-all hover:translate-y-[-4px]">
                             <div
-                                class="w-10 h-10 bg-[#5865F2]/20 text-[#5865F2] rounded-full flex items-center justify-center">
-                                <i class="fa-brands fa-discord"></i>
+                                class="w-12 h-12 bg-[#5865F2]/20 text-[#5865F2] rounded-xl flex items-center justify-center shadow-inner">
+                                <i class="fa-brands fa-discord text-xl"></i>
                             </div>
                             <div class="text-left">
-                                <p class="text-[10px] text-gray-500 uppercase font-bold">Discord</p>
-                                <p class="text-sm font-medium">@lilzeng1</p>
+                                <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest">Community</p>
+                                <p class="text-base font-bold">@lilzeng1</p>
                             </div>
                         </a>
                     </div>
@@ -309,10 +377,21 @@
         </section>
     </main>
 
-    <footer class="border-t border-white/5 bg-dark py-10">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-xl font-display font-bold mb-4">George Arshed</h2>
-            <p class="text-gray-600 text-xs">© 2026. Built in Damascus.</p>
+    <footer class="border-t border-white/5 bg-dark py-16">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h2 class="text-2xl font-display font-black mb-2">George Arshed</h2>
+                <p class="text-gray-500 text-sm">Crafting digital empires with code.</p>
+            </div>
+            <div class="flex gap-8">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                        class="fa-brands fa-github text-2xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                        class="fa-brands fa-linkedin text-2xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i
+                        class="fa-brands fa-twitter text-2xl"></i></a>
+            </div>
+            <p class="text-gray-600 text-xs font-bold tracking-widest uppercase">© 2026. Made in Damascus.</p>
         </div>
     </footer>
 
