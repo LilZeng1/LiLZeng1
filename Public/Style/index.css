@@ -12,23 +12,23 @@ body {
     background-color: #050505;
     color: white;
     width: 100%;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 * {
-    cursor: auto !important;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 a,
 button,
-[role="button"],
-i,
-.group {
+[role="button"] {
     cursor: pointer !important;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -36,18 +36,19 @@ i,
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(#8b5cf6, #ec4899, #06b6d4);
-    border-radius: 20px;
+    background: linear-gradient(#8b5cf6, #ec4899);
+    border-radius: 10px;
 }
 
 .animate-fade-in-up {
-    animation: fadeInUp 1.2s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+    animation: fadeInUp 1s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+    opacity: 0;
 }
 
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(30px);
     }
 
     to {
@@ -56,95 +57,61 @@ i,
     }
 }
 
-.animate-gradient-text {
-    background-size: 200% auto;
-    animation: textGradient 3s linear infinite;
-}
-
-@keyframes textGradient {
-    to {
-        background-position: 200% center;
-    }
-}
-
 .glass-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-card:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(139, 92, 246, 0.05);
     border-color: rgba(139, 92, 246, 0.4);
-    transform: translateY(-8px);
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+    transform: scale(1.02);
 }
 
+/* Responsive Grid */
 .bento-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
-    .bento-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 @media (min-width: 1024px) {
-    .bento-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
     .bento-item-wide {
         grid-column: span 2;
     }
 }
 
-.noise-bg {
-    pointer-events: none;
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
 .hero-glow {
     position: absolute;
-    width: 100vw;
-    height: 100vw;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, rgba(5, 5, 5, 0) 70%);
-    top: -50vw;
-    left: -50vw;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    top: -20vw;
+    left: -10vw;
     z-index: -1;
+    pointer-events: none;
 }
 
-.hero-glow-secondary {
-    position: absolute;
-    width: 80vw;
-    height: 80vw;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, rgba(5, 5, 5, 0) 70%);
-    bottom: -20%;
-    right: -30vw;
-    z-index: -1;
+/* Easter Egg: Konami Kod */
+.matrix-mode {
+    filter: hue-rotate(90deg) brightness(1.2) contrast(1.2);
+    transition: filter 1s ease;
 }
 
-#mobileMenu.active {
-    visibility: visible;
-    pointer-events: auto;
+.floating {
+    animation: float 6s ease-in-out infinite;
 }
 
-#mobileMenu.active #mobileMenuOverlay {
-    opacity: 1;
-}
+@keyframes float {
 
-#mobileMenu.active #mobileMenuContent {
-    transform: translateX(0);
-}
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
 
-[dir="rtl"] .font-display {
-    font-family: 'Tahoma', sans-serif !important;
+    50% {
+        transform: translateY(-20px);
+    }
 }
