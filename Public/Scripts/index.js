@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const typeStrings = {
-        en: ["Full-Stack Architect", "UI/UX Visionary", "Founder of Levant"],
-        tr: ["Full-Stack Mimar", "Vizyoner Tasarımcı", "Levant Kurucusu"],
+        en: ["Full-Stack Web Architect", "UI/UX Visionary", "Founder of Levant"],
+        tr: ["Full-Stack Web Yazılımcısı", "Vizyoner Tasarımcı", "Levant Kurucusu"],
         ar: ["مهندس برمجيات", "مبدع واجهات", "مؤسس Levant"]
     };
 
