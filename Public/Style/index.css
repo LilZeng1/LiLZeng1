@@ -45,8 +45,21 @@ i,
 }
 
 .skill-tag {
-    @apply px-4 py-2 bg-white/5 rounded-xl text-[11px] font-bold text-gray-300 border border-white/5 hover:border-primary/50 hover:bg-primary/10 transition-all cursor-default;
     display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    font-size: 11px;
+    font-weight: 700;
+    color: #d1d5db;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    border-color: rgba(139, 92, 246, 0.5);
+    background: rgba(139, 92, 246, 0.1);
 }
 
 @keyframes fadeInUp {
@@ -146,19 +159,6 @@ i,
     bottom: -20%;
     right: -30vw;
     z-index: -1;
-}
-
-#mobileMenu.active {
-    visibility: visible;
-    pointer-events: auto;
-}
-
-#mobileMenu.active #mobileMenuOverlay {
-    opacity: 1;
-}
-
-#mobileMenu.active #mobileMenuContent {
-    transform: translateX(0);
 }
 
 [dir="rtl"] .font-display {
