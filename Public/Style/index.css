@@ -3,6 +3,7 @@
 html {
     scroll-behavior: smooth;
     cursor: auto;
+    overflow-x: hidden;
 }
 
 body {
@@ -10,10 +11,12 @@ body {
     overflow-x: hidden;
     background-color: #050505;
     color: white;
+    width: 100%;
 }
 
 * {
     cursor: auto !important;
+    box-sizing: border-box;
 }
 
 a,
@@ -25,7 +28,7 @@ i,
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -44,7 +47,7 @@ i,
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(60px);
+        transform: translateY(40px);
     }
 
     to {
@@ -68,20 +71,26 @@ i,
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(139, 92, 246, 0.4);
-    transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6), 0 0 50px rgba(139, 92, 246, 0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
 }
 
 .bento-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (min-width: 1024px) {
@@ -89,7 +98,7 @@ i,
         grid-template-columns: repeat(3, 1fr);
     }
 
-    .bento-item-1 {
+    .bento-item-wide {
         grid-column: span 2;
     }
 }
@@ -105,22 +114,35 @@ i,
 
 .hero-glow {
     position: absolute;
-    width: 80vw;
-    height: 80vw;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(5, 5, 5, 0) 70%);
-    top: -30vw;
-    left: -30vw;
+    width: 100vw;
+    height: 100vw;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, rgba(5, 5, 5, 0) 70%);
+    top: -50vw;
+    left: -50vw;
     z-index: -1;
 }
 
 .hero-glow-secondary {
     position: absolute;
-    width: 60vw;
-    height: 60vw;
-    background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, rgba(5, 5, 5, 0) 70%);
-    bottom: 10%;
-    right: -20vw;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, rgba(5, 5, 5, 0) 70%);
+    bottom: -20%;
+    right: -30vw;
     z-index: -1;
+}
+
+#mobileMenu.active {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#mobileMenu.active #mobileMenuOverlay {
+    opacity: 1;
+}
+
+#mobileMenu.active #mobileMenuContent {
+    transform: translateX(0);
 }
 
 [dir="rtl"] .font-display {
