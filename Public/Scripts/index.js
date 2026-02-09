@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // NAVIGATION LOGIC
     const navbar = document.getElementById('navbar');
     const scrollProgress = document.getElementById('scrollProgress');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -18,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // MOBILE MENU TOGGLE
     const toggleMenu = () => {
         const isHidden = mobileMenu.classList.contains('hidden');
         if (isHidden) {
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('closeMenuBtn').onclick = toggleMenu;
     document.querySelectorAll('.mobile-link').forEach(link => link.onclick = toggleMenu);
 
-    // MULTI-LANGUAGE SYSTEM
     const translations = {
         en: {
             nav_home: "Home", nav_about: "About", nav_projects: "Ventures", nav_contact: "Contact", nav_sub: "Visionary Dev",
@@ -80,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.fontFamily = currentLang === 'ar' ? 'Tahoma, sans-serif' : "'Space Grotesk', sans-serif";
     };
 
-    // TYPEWRITER EFFECT
     const typeStrings = {
         en: ["Full-Stack Architect", "UI/UX Visionary", "Founder of Levant"],
         tr: ["Full-Stack Mimar", "Vizyoner Tasarımcı", "Levant Kurucusu"],
@@ -112,7 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     type();
 
-    // COUNTER ANIMATION
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -133,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.5 });
     document.querySelectorAll('.counter').forEach(c => observer.observe(c));
 
-    // EASTER EGG
     let clickCount = 0;
     document.getElementById('logoMain').onclick = () => {
         clickCount++;
