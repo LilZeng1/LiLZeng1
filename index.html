@@ -33,21 +33,18 @@
     </script>
 </head>
 <body class="bg-dark text-white selection:bg-primary selection:text-white">
-
     <div class="noise-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-glow-secondary"></div>
-
     <div class="fixed top-0 left-0 w-full h-[3px] z-[100]">
         <div id="scrollProgress"
             class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 transition-all duration-150"></div>
     </div>
-
     <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/5 bg-dark/80 backdrop-blur-lg"
         id="navbar">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
             <div class="flex items-center justify-between h-20 md:h-24" id="navContainer">
-                <div class="flex items-center gap-3 md:gap-4 group cursor-pointer">
+                <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" id="logoMain">
                     <div class="relative">
                         <img src="Public/Assets/GeorgeAvatar.png"
                             onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=8b5cf6&color=fff'"
@@ -59,28 +56,30 @@
                     <div class="flex flex-col">
                         <span class="font-display font-black text-lg md:text-xl tracking-tighter leading-none">George
                             Arshed</span>
-                        <span
-                            class="text-[9px] md:text-[10px] text-primary font-bold tracking-[0.2em] uppercase mt-1">Visionary
-                            Dev</span>
+                        <span class="text-[9px] md:text-[10px] text-primary font-bold tracking-[0.2em] uppercase mt-1"
+                            data-i18n="nav_sub">Visionary Dev</span>
                     </div>
                 </div>
-
                 <div class="hidden lg:flex items-center gap-2 bg-white/5 p-1.5 rounded-2xl border border-white/5">
                     <a href="#home"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Home</a>
+                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                        data-i18n="nav_home">Home</a>
                     <a href="#about"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">About</a>
+                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                        data-i18n="nav_about">About</a>
                     <a href="#projects"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Ventures</a>
+                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                        data-i18n="nav_projects">Ventures</a>
                     <a href="#contact"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all">Contact</a>
+                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                        data-i18n="nav_contact">Contact</a>
                 </div>
-
                 <div class="flex items-center gap-3">
                     <div class="relative group hidden sm:block">
-                        <button
+                        <button onclick="cycleLang()"
                             class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-xs font-black tracking-widest">
-                            <i class="fa-solid fa-earth-americas text-primary"></i> <span>EN</span>
+                            <i class="fa-solid fa-earth-americas text-primary"></i> <span
+                                id="currentLangDisplay">EN</span>
                         </button>
                     </div>
                     <button id="mobileMenuBtn"
@@ -91,8 +90,7 @@
             </div>
         </div>
     </nav>
-
-    <div id="mobileMenu" class="fixed inset-0 z-[100] invisible">
+    <div id="mobileMenu" class="fixed inset-0 z-[100] hidden">
         <div id="mobileMenuOverlay"
             class="absolute inset-0 bg-dark/90 backdrop-blur-xl opacity-0 transition-opacity duration-500"></div>
         <div id="mobileMenuContent"
@@ -105,14 +103,16 @@
                 </button>
             </div>
             <div class="flex flex-col gap-6">
-                <a href="#home"
-                    class="text-3xl font-display font-black hover:text-primary transition-all mobile-link">Home</a>
-                <a href="#about"
-                    class="text-3xl font-display font-black hover:text-primary transition-all mobile-link">About</a>
+                <a href="#home" class="text-3xl font-display font-black hover:text-primary transition-all mobile-link"
+                    data-i18n="nav_home">Home</a>
+                <a href="#about" class="text-3xl font-display font-black hover:text-primary transition-all mobile-link"
+                    data-i18n="nav_about">About</a>
                 <a href="#projects"
-                    class="text-3xl font-display font-black hover:text-primary transition-all mobile-link">Ventures</a>
+                    class="text-3xl font-display font-black hover:text-primary transition-all mobile-link"
+                    data-i18n="nav_projects">Ventures</a>
                 <a href="#contact"
-                    class="text-3xl font-display font-black hover:text-primary transition-all mobile-link">Contact</a>
+                    class="text-3xl font-display font-black hover:text-primary transition-all mobile-link"
+                    data-i18n="nav_contact">Contact</a>
             </div>
             <div class="mt-auto pt-10 border-t border-white/5">
                 <div class="flex gap-6">
@@ -124,61 +124,61 @@
             </div>
         </div>
     </div>
-
     <main>
         <section id="home" class="min-h-screen flex items-center justify-center relative px-6 pt-24 pb-12">
             <div class="text-center max-w-5xl mx-auto z-10">
                 <h1
                     class="text-[clamp(2.5rem,10vw,8rem)] font-display font-black mb-6 tracking-tighter leading-[0.9] animate-fade-in-up">
-                    Digital <br>
+                    <span data-i18n="hero_title_1">Digital</span> <br>
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-text">Mastery.</span>
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-text"
+                        data-i18n="hero_title_2">Mastery.</span>
                 </h1>
-
                 <p
                     class="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up font-light leading-relaxed">
-                    I'm <span
+                    <span data-i18n="hero_im">I'm</span> <span
                         class="text-white font-bold underline decoration-primary/40 underline-offset-4">George</span>.
                     <span id="typewriter" class="text-white font-medium"></span><span
                         class="animate-pulse text-primary">|</span>
                 </p>
-
                 <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up px-4">
                     <a href="#projects"
                         class="group relative px-8 py-4 bg-white text-black rounded-xl font-black text-sm transition-all overflow-hidden text-center">
-                        <span class="relative z-10">View Work</span>
+                        <span class="relative z-10" data-i18n="btn_work">View Work</span>
                     </a>
                     <a href="#contact"
-                        class="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-black text-sm hover:bg-white/10 transition-all backdrop-blur-md text-center">Contact
-                        Me</a>
+                        class="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-black text-sm hover:bg-white/10 transition-all backdrop-blur-md text-center"
+                        data-i18n="nav_contact">Contact Me</a>
                 </div>
-
                 <div
                     class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 mt-20 border-t border-white/5 pt-12 animate-fade-in-up">
                     <div>
                         <h4 class="text-4xl md:text-6xl font-display font-black text-white counter" data-target="18">0
                         </h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2">Age</p>
+                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                            data-i18n="stat_age">Age</p>
                     </div>
                     <div>
                         <h4 class="text-4xl md:text-6xl font-display font-black text-white counter" data-target="4">0
                         </h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2">Years Exp</p>
+                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                            data-i18n="stat_exp">Years Exp</p>
                     </div>
                     <div>
                         <h4 class="text-4xl md:text-6xl font-display font-black text-white counter" data-target="14">0
                         </h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2">Projects</p>
+                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                            data-i18n="stat_projects">Projects</p>
                     </div>
                     <div>
                         <h4 class="text-4xl md:text-6xl font-display font-black text-white counter" data-target="3">0
                         </h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2">Communities</p>
+                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                            data-i18n="stat_comm">Communities</p>
                     </div>
                 </div>
             </div>
         </section>
-
         <section id="about" class="py-20 md:py-32 px-6 relative">
             <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-10">
@@ -199,7 +199,6 @@
                         <span class="text-white font-black text-lg">Damascus, SY</span>
                     </div>
                 </div>
-
                 <div class="bento-grid">
                     <div class="bento-item-wide glass-card p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden group"
                         data-tilt>
@@ -208,7 +207,7 @@
                                 class="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center mb-8 text-primary">
                                 <i class="fa-solid fa-terminal text-2xl"></i>
                             </div>
-                            <h3 class="text-3xl font-black mb-6 font-display">Tech Arsenal</h3>
+                            <h3 class="text-3xl font-black mb-6 font-display" data-i18n="skill_title">Tech Arsenal</h3>
                             <div class="flex flex-wrap gap-3">
                                 <span
                                     class="px-4 py-2 bg-white/5 rounded-lg text-xs font-bold text-gray-300 border border-white/5">JavaScript</span>
@@ -230,9 +229,9 @@
                             class="w-14 h-14 bg-amber-500/20 rounded-xl flex items-center justify-center mb-6 text-amber-500">
                             <i class="fa-solid fa-chess-knight text-2xl"></i>
                         </div>
-                        <h3 class="text-xl font-black mb-3 font-display">Vision</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">I don't just ship features; I build digital
-                            assets that create leverage.</p>
+                        <h3 class="text-xl font-black mb-3 font-display" data-i18n="goal_title">Vision</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed" data-i18n="goal_desc">I don't just ship
+                            features; I build digital assets that create leverage.</p>
                     </div>
                     <div class="glass-card p-8 rounded-[2.5rem] group" data-tilt>
                         <div
@@ -255,15 +254,13 @@
                 </div>
             </div>
         </section>
-
         <section id="projects" class="py-20 md:py-32 px-4">
             <div class="max-w-6xl mx-auto">
                 <div class="mb-16">
-                    <h2 class="text-4xl md:text-8xl font-display font-black mb-4 tracking-tighter uppercase">Ventures
-                    </h2>
+                    <h2 class="text-4xl md:text-8xl font-display font-black mb-4 tracking-tighter uppercase"
+                        data-i18n="nav_projects">Ventures</h2>
                     <div class="h-1 w-20 bg-gradient-to-r from-primary to-accent"></div>
                 </div>
-
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
                     <div
                         class="group rounded-[2.5rem] bg-surface border border-white/5 overflow-hidden transition-all duration-700 relative">
@@ -295,7 +292,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div
                         class="group rounded-[2.5rem] bg-surface border border-white/5 overflow-hidden transition-all duration-700 relative">
                         <div class="h-[300px] md:h-[450px] overflow-hidden relative">
@@ -329,7 +325,6 @@
                 </div>
             </div>
         </section>
-
         <section id="contact" class="py-20 md:py-32 px-4">
             <div
                 class="max-w-4xl mx-auto text-center bg-white/5 border border-white/10 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 backdrop-blur-3xl relative overflow-hidden">
@@ -348,7 +343,6 @@
             </div>
         </section>
     </main>
-
     <footer class="border-t border-white/5 bg-dark py-12 md:py-20 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
@@ -365,77 +359,6 @@
             <p class="text-gray-600 text-[9px] font-black tracking-widest uppercase">© 2026. DAMASCUS.</p>
         </div>
     </footer>
-
-    <script>
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const closeMenuBtn = document.getElementById('closeMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        function toggleMenu() {
-            mobileMenu.classList.toggle('active');
-            document.body.classList.toggle('overflow-hidden');
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-        closeMenuBtn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
-
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("scrollProgress").style.width = scrolled + "%";
-
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-2', 'bg-dark/95');
-            } else {
-                nav.classList.remove('py-2', 'bg-dark/95');
-            }
-        });
-
-        const counters = document.querySelectorAll('.counter');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = +entry.target.getAttribute('data-target');
-                    let count = 0;
-                    const updateCount = () => {
-                        const inc = target / 100;
-                        if (count < target) {
-                            count += inc;
-                            entry.target.innerText = Math.ceil(count);
-                            setTimeout(updateCount, 20);
-                        } else {
-                            entry.target.innerText = target;
-                        }
-                    };
-                    updateCount();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        counters.forEach(counter => observer.observe(counter));
-
-        const text = "Full-Stack Engineer & Designer";
-        let i = 0;
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typewriter").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        }
-        window.onload = typeWriter;
-
-        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-            max: 5,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.2,
-        });
-    </script>
+    <script src="Public/Scripts/index.js"></script>
 </body>
 </html>
