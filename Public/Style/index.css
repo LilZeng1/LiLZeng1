@@ -2,7 +2,6 @@
 
 html {
     scroll-behavior: smooth;
-    cursor: auto;
     overflow-x: hidden;
 }
 
@@ -12,50 +11,6 @@ body {
     background-color: #050505;
     color: white;
     width: 100%;
-}
-
-* {
-    cursor: none !important;
-    box-sizing: border-box;
-}
-
-.cursor-dot {
-    width: 5px;
-    height: 5px;
-    background-color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform 0.1s;
-    mix-blend-mode: difference;
-}
-
-.cursor-outline {
-    width: 30px;
-    height: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9998;
-    border-radius: 50%;
-    pointer-events: none;
-    transition: transform 0.15s ease-out;
-    mix-blend-mode: difference;
-}
-
-@media (max-width: 768px) {
-    * {
-        cursor: auto !important;
-    }
-
-    .cursor-dot,
-    .cursor-outline {
-        display: none;
-    }
 }
 
 ::-webkit-scrollbar {
@@ -198,18 +153,16 @@ body {
     animation-direction: reverse;
 }
 
-[dir="rtl"] .font-display {
-    font-family: 'Tahoma', sans-serif !important;
+[dir="rtl"] .font-display,
+[dir="rtl"] body {
+    font-family: 'Tajawal', sans-serif !important;
 }
 
 [dir="rtl"] #mobileMenuContent {
     right: auto;
     left: 0;
-    transform: translateX(-100%);
-    border-left: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-[dir="rtl"] #mobileMenuContent.translate-x-0 {
-    transform: translateX(0);
+[dir="rtl"] .origin-left {
+    transform-origin: right;
 }
