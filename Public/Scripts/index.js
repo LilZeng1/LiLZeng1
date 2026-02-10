@@ -4,6 +4,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenu = document.getElementById('mobileMenu');
     const menuContent = document.getElementById('mobileMenuContent');
     const menuOverlay = document.getElementById('mobileMenuOverlay');
+    const preloader = document.getElementById('preloader');
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        }, 1000);
+    });
+
+    if (window.innerWidth > 768) {
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.transform = `translate(${posX}px, ${posY}px)`;
+            
+            cursorOutline.animate({
+                transform: `translate(${posX - 12.5}px, ${posY - 12.5}px)`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        document.querySelectorAll('a, button, .group').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+    }
 
     window.addEventListener('scroll', () => {
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -11,9 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollProgress.style.width = `${progress}%`;
 
         if (window.scrollY > 20) {
-            navbar.classList.add('py-4', 'bg-dark/95', 'shadow-2xl');
+            navbar.classList.add('py-2', 'bg-dark/95', 'shadow-2xl');
+            navbar.classList.remove('py-4');
         } else {
-            navbar.classList.remove('py-4', 'bg-dark/95');
+            navbar.classList.add('py-4');
+            navbar.classList.remove('py-2', 'bg-dark/95', 'shadow-2xl');
         }
     });
 
@@ -72,14 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
         });
 
-        document.getElementById('currentLangDisplay').textContent = currentLang.toUpperCase();
+        const display = currentLang.toUpperCase();
+        document.getElementById('currentLangDisplay').textContent = display;
+        if(document.getElementById('mobileLangDisplay')) document.getElementById('mobileLangDisplay').textContent = display;
+        
         document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
         document.body.style.fontFamily = currentLang === 'ar' ? 'Tahoma, sans-serif' : "'Space Grotesk', sans-serif";
     };
 
     const typeStrings = {
-        en: ["Full-Stack Web Architect", "UI/UX Visionary", "Founder of Levant"],
-        tr: ["Full-Stack Web Yazılımcısı", "Vizyoner Tasarımcı", "Levant Kurucusu"],
+        en: ["Full-Stack Architect", "UI/UX Visionary", "Founder of Levant"],
+        tr: ["Full-Stack Mimar", "Vizyoner Tasarımcı", "Levant Kurucusu"],
         ar: ["مهندس برمجيات", "مبدع واجهات", "مؤسس Levant"]
     };
 
@@ -139,4 +180,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     console.log("%c George Arshed %c Built for the future.", "color: #8b5cf6; font-size: 20px; font-weight: bold;", "color: #555;");
+    
+    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.2,
+    });
 });
