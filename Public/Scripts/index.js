@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const toggleMenu = () => {
         const isHidden = mobileMenu.classList.contains('hidden');
-        const isRTL = document.body.dir === 'rtl';
+        const isRTL = document.documentElement.dir === 'rtl';
         const translateClass = isRTL ? '-translate-x-full' : 'translate-x-full';
 
         if (isHidden) {
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('currentLangDisplay').textContent = display;
         if (document.getElementById('mobileLangDisplay')) document.getElementById('mobileLangDisplay').textContent = display;
 
-        document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
     };
 
     const typeStrings = {
@@ -197,11 +197,4 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => document.documentElement.style.filter = '', 5000);
         }
     };
-
-    VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
-        max: 15,
-        speed: 400,
-        glare: true,
-        "max-glare": 0.2,
-    });
 });
