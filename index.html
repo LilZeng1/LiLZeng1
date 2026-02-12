@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>George Arshed | Visionary Developer</title>
+    <title>George Arshed | Digital Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Public/Style/index.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -24,16 +27,37 @@
                         secondary: "#ec4899",
                         accent: "#06b6d4",
                         dark: "#050505",
-                        surface: "#0f0f11"
+                        light: "#f3f4f6",
+                        surface: "#0f0f11",
+                        surfaceLight: "#ffffff"
                     },
                     animation: {
-                        'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'blob': 'blob 7s infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         }
                     }
                 }
@@ -41,462 +65,496 @@
         }
     </script>
 </head>
+<body class="bg-light dark:bg-dark text-gray-900 dark:text-white transition-colors duration-500 overflow-x-hidden">
+    <canvas id="particleCanvas" class="fixed inset-0 z-0 pointer-events-none opacity-40"></canvas>
 
-<body class="bg-dark text-white selection:bg-primary selection:text-white overflow-x-hidden">
     <div id="preloader"
         class="fixed inset-0 z-[9999] bg-dark flex items-center justify-center transition-opacity duration-500">
         <div class="flex flex-col items-center gap-4">
-            <div class="relative w-16 h-16">
-                <div class="absolute inset-0 border-t-2 border-primary rounded-full animate-spin"></div>
-                <div class="absolute inset-2 border-r-2 border-secondary rounded-full animate-spin reverse-spin"></div>
-                <div class="absolute inset-4 border-b-2 border-accent rounded-full animate-spin"></div>
+            <div class="relative w-24 h-24">
+                <div class="absolute inset-0 border-t-4 border-primary rounded-full animate-spin"></div>
+                <div class="absolute inset-3 border-r-4 border-secondary rounded-full animate-spin reverse-spin"></div>
+                <div class="absolute inset-6 border-b-4 border-accent rounded-full animate-spin"></div>
+                <i
+                    class="fa-solid fa-rocket absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white animate-bounce"></i>
             </div>
-            <span class="font-display font-bold tracking-[0.3em] text-xs animate-pulse">LOADING</span>
+            <span
+                class="font-display font-black tracking-[0.5em] text-lg animate-pulse text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">LOADING</span>
         </div>
     </div>
-    <div class="noise-bg"></div>
-    <div class="hero-glow animate-pulse-slow"></div>
-    <div class="hero-glow-secondary animate-pulse-slow"></div>
-    <div class="fixed top-0 left-0 w-full h-[3px] z-[100]">
-        <div id="scrollProgress"
-            class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 transition-all duration-150"></div>
+
+    <div class="fixed bottom-6 right-6 z-[90] flex flex-col gap-3">
+        <div id="keyHint"
+            class="bg-black/80 text-white px-4 py-2 rounded-lg text-xs font-mono hidden md:block opacity-0 transition-opacity duration-300 pointer-events-none">
+            Press <span class="text-primary font-bold">Shift+T</span> for Theme
+        </div>
     </div>
-    <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/5 bg-dark/80 backdrop-blur-lg"
+
+    <div class="fixed top-0 left-0 w-full h-[5px] z-[100]">
+        <div id="scrollProgress"
+            class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 transition-all duration-75 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
+        </div>
+    </div>
+
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-black/5 dark:border-white/5 bg-white/70 dark:bg-dark/80 backdrop-blur-xl"
         id="navbar">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
-            <div class="flex items-center justify-between h-20 md:h-24" id="navContainer">
-                <div class="flex items-center gap-3 md:gap-4 group cursor-pointer" id="logoMain">
+            <div class="flex items-center justify-between h-20 md:h-24">
+                <div class="flex items-center gap-3 group cursor-pointer hover:scale-105 transition-transform"
+                    id="logoMain" data-tilt data-tilt-scale="1.1">
                     <div class="relative">
                         <img src="Public/Assets/GeorgeAvatar.png"
-                            onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=8b5cf6&color=fff'"
+                            onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=random&bold=true'"
                             alt="George"
-                            class="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl border border-white/10 group-hover:border-primary/50 transition-all duration-500">
-                        <div class="absolute inset-0 rounded-2xl bg-primary/20 blur group-hover:blur-md transition-all">
+                            class="w-12 h-12 rounded-2xl border-2 border-primary/20 group-hover:border-primary group-hover:rotate-12 transition-all duration-300 shadow-lg">
+                        <div
+                            class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-dark animate-pulse">
                         </div>
                     </div>
                     <div class="flex flex-col">
-                        <span class="font-display font-black text-lg md:text-xl tracking-tighter leading-none"
+                        <span
+                            class="font-display font-black text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 group-hover:from-primary group-hover:to-secondary transition-all"
                             data-i18n="name_main">George Arshed</span>
-                        <span class="text-[9px] md:text-[10px] text-primary font-bold tracking-[0.2em] uppercase mt-1"
+                        <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-primary animate-pulse"
                             data-i18n="nav_sub">Visionary Dev</span>
                     </div>
                 </div>
+
                 <div
-                    class="hidden lg:flex items-center gap-2 bg-white/5 p-1.5 rounded-2xl border border-white/5 backdrop-blur-md">
+                    class="hidden lg:flex items-center gap-2 bg-gray-100/50 dark:bg-white/5 p-1.5 rounded-2xl border border-black/5 dark:border-white/5 backdrop-blur-md shadow-inner">
                     <a href="#home"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all relative overflow-hidden group">
-                        <span class="relative z-10" data-i18n="nav_home">Home</span>
-                        <div
-                            class="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left rtl:origin-right">
-                        </div>
+                        class="nav-item px-5 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary rounded-xl transition-all relative overflow-hidden group">
+                        <i class="fa-solid fa-house mr-2 group-hover:animate-bounce"></i><span
+                            data-i18n="nav_home">Home</span>
                     </a>
                     <a href="#about"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all relative overflow-hidden group">
-                        <span class="relative z-10" data-i18n="nav_about">About</span>
-                        <div
-                            class="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left rtl:origin-right">
-                        </div>
+                        class="nav-item px-5 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary rounded-xl transition-all relative overflow-hidden group">
+                        <i class="fa-solid fa-user-astronaut mr-2 group-hover:animate-shake"></i><span
+                            data-i18n="nav_about">About</span>
                     </a>
                     <a href="#projects"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all relative overflow-hidden group">
-                        <span class="relative z-10" data-i18n="nav_projects">Ventures</span>
-                        <div
-                            class="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left rtl:origin-right">
-                        </div>
+                        class="nav-item px-5 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary rounded-xl transition-all relative overflow-hidden group">
+                        <i class="fa-solid fa-rocket mr-2 group-hover:animate-pulse"></i><span
+                            data-i18n="nav_projects">Ventures</span>
                     </a>
                     <a href="#contact"
-                        class="px-5 py-2 text-sm font-bold text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all relative overflow-hidden group">
-                        <span class="relative z-10" data-i18n="nav_contact">Contact</span>
-                        <div
-                            class="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left rtl:origin-right">
-                        </div>
+                        class="nav-item px-5 py-2.5 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-primary hover:to-secondary rounded-xl transition-all relative overflow-hidden group">
+                        <i class="fa-solid fa-paper-plane mr-2 group-hover:animate-wiggle"></i><span
+                            data-i18n="nav_contact">Contact</span>
                     </a>
                 </div>
+
                 <div class="flex items-center gap-3">
-                    <div class="relative group hidden sm:block">
-                        <button onclick="cycleLang()"
-                            class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-xs font-black tracking-widest hover:border-primary/50 transition-colors">
-                            <i class="fa-solid fa-earth-americas text-primary"></i> <span
-                                id="currentLangDisplay">EN</span>
-                        </button>
-                    </div>
+                    <button id="themeToggle"
+                        class="w-10 h-10 rounded-xl bg-gray-200 dark:bg-white/10 hover:bg-primary hover:text-white text-gray-700 dark:text-white transition-all hover:rotate-180 active:scale-90 shadow-lg flex items-center justify-center">
+                        <i class="fa-solid fa-moon dark:hidden"></i>
+                        <i class="fa-solid fa-sun hidden dark:block"></i>
+                    </button>
+
+                    <button onclick="cycleLang()"
+                        class="hidden sm:flex items-center gap-2 bg-gray-200 dark:bg-white/10 border border-transparent hover:border-primary px-4 py-2 rounded-xl text-xs font-black tracking-widest transition-all active:scale-95 shadow-lg">
+                        <i class="fa-solid fa-language text-primary text-lg"></i>
+                        <span id="currentLangDisplay">EN</span>
+                    </button>
+
                     <button id="mobileMenuBtn"
-                        class="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20 active:scale-95 transition-transform">
-                        <i class="fa-solid fa-bars-staggered"></i>
+                        class="lg:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary text-white shadow-lg shadow-primary/30 active:scale-75 transition-transform">
+                        <i class="fa-solid fa-bars-staggered text-lg"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
+
     <div id="mobileMenu" class="fixed inset-0 z-[100] hidden">
         <div id="mobileMenuOverlay"
-            class="absolute inset-0 bg-dark/90 backdrop-blur-xl opacity-0 transition-opacity duration-500"></div>
+            class="absolute inset-0 bg-white/90 dark:bg-dark/95 backdrop-blur-2xl opacity-0 transition-opacity duration-500">
+        </div>
         <div id="mobileMenuContent"
-            class="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-surface border-l rtl:border-l-0 rtl:border-r border-white/10 transform translate-x-full rtl:-translate-x-full transition-transform duration-500 ease-out p-8 flex flex-col shadow-2xl shadow-primary/10">
-            <div class="flex justify-between items-center mb-12">
-                <div class="flex items-center gap-3">
-                    <div class="relative group">
-                        <!-- Navbar -->
+            class="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white dark:bg-surface border-l dark:border-white/10 shadow-2xl transform translate-x-full transition-transform duration-500 ease-elastic p-8 flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center mb-12">
+                    <div class="flex items-center gap-3">
                         <img src="Public/Assets/GeorgeAvatar.png"
-                            onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=8b5cf6&color=fff'"
-                            alt="George"
-                            class="w-10 h-10 rounded-xl border border-white/10 shadow-lg shadow-primary/20">
-                        <div class="absolute inset-0 rounded-xl bg-primary/20 blur-sm"></div>
+                            onerror="this.src='https://ui-avatars.com/api/?name=G+A'"
+                            class="w-10 h-10 rounded-xl shadow-lg">
+                        <span class="font-display font-black text-xl" data-i18n="name_short">George.</span>
                     </div>
-                    <span class="font-display font-black text-xl tracking-tighter" data-i18n="name_short">George.</span>
-                </div>
-                <button id="closeMenuBtn"
-                    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white hover:bg-white/10 hover:rotate-90 transition-all duration-300">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="flex flex-col gap-6">
-                <a href="#home"
-                    class="text-4xl font-display font-black text-white/50 hover:text-white hover:translate-x-4 rtl:hover:-translate-x-4 transition-all duration-300 mobile-link flex items-center gap-4">
-                    <span class="text-base text-primary opacity-0 hover:opacity-100">01</span> <span
-                        data-i18n="nav_home">Home</span>
-                </a>
-                <a href="#about"
-                    class="text-4xl font-display font-black text-white/50 hover:text-white hover:translate-x-4 rtl:hover:-translate-x-4 transition-all duration-300 mobile-link flex items-center gap-4">
-                    <span class="text-base text-secondary opacity-0 hover:opacity-100">02</span> <span
-                        data-i18n="nav_about">About</span>
-                </a>
-                <a href="#projects"
-                    class="text-4xl font-display font-black text-white/50 hover:text-white hover:translate-x-4 rtl:hover:-translate-x-4 transition-all duration-300 mobile-link flex items-center gap-4">
-                    <span class="text-base text-accent opacity-0 hover:opacity-100">03</span> <span
-                        data-i18n="nav_projects">Ventures</span>
-                </a>
-                <a href="#contact"
-                    class="text-4xl font-display font-black text-white/50 hover:text-white hover:translate-x-4 rtl:hover:-translate-x-4 transition-all duration-300 mobile-link flex items-center gap-4">
-                    <span class="text-base text-primary opacity-0 hover:opacity-100">04</span> <span
-                        data-i18n="nav_contact">Contact</span>
-                </a>
-            </div>
-            <div class="mt-auto pt-10 border-t border-white/5">
-                <div class="flex justify-between items-center">
-                    <div class="flex gap-6">
-                        <a href="https://github.com/lilzeng1"
-                            class="text-2xl text-white/50 hover:text-white hover:-translate-y-1 transition-all"><i
-                                class="fa-brands fa-github"></i></a>
-                        <a href="https://instagram.com/lilzeng1"
-                            class="text-2xl text-white/50 hover:text-secondary hover:-translate-y-1 transition-all"><i
-                                class="fa-brands fa-instagram"></i></a>
-                    </div>
-                    <button onclick="cycleLang()"
-                        class="px-4 py-2 rounded-lg bg-white/5 text-xs font-bold tracking-widest hover:bg-white/10 transition-all">
-                        <span id="mobileLangDisplay">EN</span>
+                    <button id="closeMenuBtn"
+                        class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center">
+                        <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
+                <div class="flex flex-col gap-4">
+                    <a href="#home"
+                        class="mobile-link p-4 rounded-2xl hover:bg-primary/10 flex items-center gap-4 group transition-all">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-house"></i></div>
+                        <span class="text-2xl font-black font-display" data-i18n="nav_home">Home</span>
+                    </a>
+                    <a href="#about"
+                        class="mobile-link p-4 rounded-2xl hover:bg-secondary/10 flex items-center gap-4 group transition-all">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-secondary/20 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-user"></i></div>
+                        <span class="text-2xl font-black font-display" data-i18n="nav_about">About</span>
+                    </a>
+                    <a href="#projects"
+                        class="mobile-link p-4 rounded-2xl hover:bg-accent/10 flex items-center gap-4 group transition-all">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-accent/20 text-accent flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-rocket"></i></div>
+                        <span class="text-2xl font-black font-display" data-i18n="nav_projects">Ventures</span>
+                    </a>
+                    <a href="#contact"
+                        class="mobile-link p-4 rounded-2xl hover:bg-green-500/10 flex items-center gap-4 group transition-all">
+                        <div
+                            class="w-10 h-10 rounded-lg bg-green-500/20 text-green-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-envelope"></i></div>
+                        <span class="text-2xl font-black font-display" data-i18n="nav_contact">Contact</span>
+                    </a>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="cycleLang()"
+                    class="flex-1 py-3 rounded-xl bg-gray-100 dark:bg-white/5 font-bold hover:bg-primary hover:text-white transition-all">
+                    <i class="fa-solid fa-globe mr-2"></i> <span id="mobileLangDisplay">EN</span>
+                </button>
+                <button id="mobileThemeToggle"
+                    class="flex-1 py-3 rounded-xl bg-gray-100 dark:bg-white/5 font-bold hover:bg-secondary hover:text-white transition-all">
+                    <i class="fa-solid fa-moon dark:hidden"></i><i class="fa-solid fa-sun hidden dark:block"></i> Theme
+                </button>
             </div>
         </div>
     </div>
-    <main>
+
+    <main class="relative z-10">
         <section id="home"
             class="min-h-screen flex items-center justify-center relative px-6 pt-24 pb-12 overflow-hidden">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-primary/30 rounded-full blur-[50px] animate-blob"></div>
             <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 blur-[120px] rounded-full animate-pulse-slow pointer-events-none">
+                class="absolute top-40 right-10 w-32 h-32 bg-secondary/30 rounded-full blur-[50px] animate-blob animation-delay-2000">
             </div>
-            <div class="text-center max-w-5xl mx-auto z-10">
-                <div
-                    class="inline-block mb-6 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md animate-fade-in-up">
-                    <span class="text-[10px] font-bold tracking-[0.2em] text-accent uppercase flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span> <span
-                            data-i18n="status_avail">Available for hire</span>
-                    </span>
-                </div>
+            <div
+                class="absolute bottom-20 left-1/2 w-48 h-48 bg-accent/30 rounded-full blur-[60px] animate-blob animation-delay-4000">
+            </div>
+
+            <div class="text-center max-w-5xl mx-auto z-10 perspective-1000">
                 <h1
-                    class="text-[clamp(3rem,11vw,8rem)] font-display font-black mb-6 tracking-tighter leading-[0.9] animate-fade-in-up drop-shadow-2xl">
-                    <span data-i18n="hero_title_1">Digital</span> <br>
+                    class="text-[clamp(3.5rem,12vw,9rem)] font-display font-black mb-6 tracking-tighter leading-[0.85] animate-fade-in-up drop-shadow-2xl hover:scale-[1.02] transition-transform cursor-default select-none">
+                    <span data-i18n="hero_title_1"
+                        class="inline-block hover:text-primary transition-colors duration-300">Digital</span> <br>
                     <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-text"
                         data-i18n="hero_title_2">Mastery.</span>
                 </h1>
+
                 <p
-                    class="text-lg md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10 animate-fade-in-up font-light leading-relaxed delay-100">
-                    <span data-i18n="hero_im">I'm</span> <span
-                        class="text-white font-bold underline decoration-primary/40 underline-offset-4 hover:decoration-primary transition-all"
-                        data-i18n="name_first">George</span>.
-                    <span id="typewriter" class="text-white font-medium"></span><span
-                        class="animate-pulse text-primary">|</span>
+                    class="text-xl md:text-3xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10 animate-fade-in-up delay-100 font-medium">
+                    <span data-i18n="hero_im">I'm</span>
+                    <span class="relative inline-block px-2 group">
+                        <span class="relative z-10 text-black dark:text-white font-black"
+                            data-i18n="name_first">George</span>
+                        <span
+                            class="absolute inset-0 bg-primary/20 transform -skew-x-12 group-hover:bg-primary/50 transition-all"></span>
+                    </span>
+                    <br class="md:hidden">
+                    <span id="typewriter" class="text-primary font-bold"></span><span
+                        class="animate-pulse text-secondary">_</span>
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-200 px-4">
+
+                <div class="flex flex-col sm:flex-row justify-center gap-5 animate-fade-in-up delay-200 px-4">
                     <a href="#projects"
-                        class="group relative px-8 py-4 bg-white text-black rounded-xl font-black text-sm transition-all overflow-hidden text-center hover:scale-105 active:scale-95">
-                        <span class="relative z-10 flex items-center justify-center gap-2">
+                        class="group relative px-10 py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-lg shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.4)] transition-all hover:-translate-y-2 overflow-hidden">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-20 transition-opacity w-[200%] animate-gradient-text">
+                        </div>
+                        <span class="relative z-10 flex items-center justify-center gap-3">
                             <span data-i18n="btn_work">View Work</span>
-                            <i
-                                class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 rtl:rotate-[225deg] rtl:group-hover:rotate-180 transition-transform duration-300"></i>
+                            <i class="fa-solid fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                         </span>
                     </a>
                     <a href="#contact"
-                        class="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-black text-sm hover:bg-white/10 hover:border-primary/30 transition-all backdrop-blur-md text-center hover:scale-105 active:scale-95"
-                        data-i18n="btn_contact_me">Contact Me</a>
+                        class="px-10 py-5 bg-white/50 dark:bg-white/5 border-2 border-black/10 dark:border-white/10 rounded-2xl font-black text-lg hover:bg-white hover:border-transparent hover:text-black dark:hover:bg-white dark:hover:text-black transition-all hover:-translate-y-2 backdrop-blur-md shadow-lg"
+                        data-i18n="btn_contact_me">
+                        Contact Me
+                    </a>
                 </div>
+
                 <div
-                    class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 mt-20 border-t border-white/5 pt-12 animate-fade-in-up delay-300">
-                    <div class="hover:-translate-y-2 transition-transform duration-300">
-                        <h4 class="text-4xl md:text-6xl font-display font-black text-white counter drop-shadow-lg"
+                    class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 mt-20 border-t border-black/10 dark:border-white/10 pt-12 animate-fade-in-up delay-300">
+                    <div class="counter-card p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-colors cursor-pointer group"
+                        data-tilt>
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-primary group-hover:scale-110 transition-transform counter"
                             data-target="18">0</h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                        <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-2"
                             data-i18n="stat_age">Age</p>
                     </div>
-                    <div class="hover:-translate-y-2 transition-transform duration-300">
-                        <h4 class="text-4xl md:text-6xl font-display font-black text-white counter drop-shadow-lg"
+                    <div class="counter-card p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-colors cursor-pointer group"
+                        data-tilt>
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-secondary group-hover:scale-110 transition-transform counter"
                             data-target="4">0</h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                        <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-2"
                             data-i18n="stat_exp">Years Exp</p>
                     </div>
-                    <div class="hover:-translate-y-2 transition-transform duration-300">
-                        <h4 class="text-4xl md:text-6xl font-display font-black text-white counter drop-shadow-lg"
+                    <div class="counter-card p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-colors cursor-pointer group"
+                        data-tilt>
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-accent group-hover:scale-110 transition-transform counter"
                             data-target="14">0</h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                        <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-2"
                             data-i18n="stat_projects">Projects</p>
                     </div>
-                    <div class="hover:-translate-y-2 transition-transform duration-300">
-                        <h4 class="text-4xl md:text-6xl font-display font-black text-white counter drop-shadow-lg"
+                    <div class="counter-card p-4 rounded-2xl hover:bg-white/50 dark:hover:bg-white/5 transition-colors cursor-pointer group"
+                        data-tilt>
+                        <h4 class="text-4xl md:text-5xl font-display font-black text-green-500 group-hover:scale-110 transition-transform counter"
                             data-target="3">0</h4>
-                        <p class="text-[9px] text-gray-500 uppercase font-black tracking-widest mt-2"
+                        <p class="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-2"
                             data-i18n="stat_comm">Communities</p>
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-                <i class="fa-solid fa-chevron-down text-white/20 text-xl"></i>
-            </div>
         </section>
-        <section id="about" class="py-20 md:py-32 px-6 relative overflow-hidden">
-            <div
-                class="absolute right-0 top-1/4 w-96 h-96 bg-secondary/10 blur-[100px] rounded-full pointer-events-none rtl:left-0 rtl:right-auto">
-            </div>
-            <div class="max-w-6xl mx-auto relative z-10">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-10">
-                    <div class="max-w-3xl">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="h-[1px] w-10 bg-gradient-to-r from-primary to-transparent rtl:bg-gradient-to-l">
+
+        <section id="about" class="py-24 px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
+                    <div data-tilt data-tilt-max="5" class="relative group">
+                        <div
+                            class="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-[2rem] blur-lg opacity-30 group-hover:opacity-75 transition duration-500 animate-tilt">
+                        </div>
+                        <div
+                            class="relative bg-white dark:bg-surface border border-black/5 dark:border-white/10 p-10 rounded-[2rem] shadow-2xl">
+                            <div class="flex items-center gap-4 mb-6">
+                                <span class="w-12 h-1 bg-primary rounded-full"></span>
+                                <span class="text-primary font-black tracking-[0.2em] text-xs uppercase"
+                                    data-i18n="sec_bio">Biography</span>
                             </div>
-                            <span class="text-primary font-black tracking-widest text-[10px] uppercase"
-                                data-i18n="sec_bio">Biography</span>
+                            <h2 class="text-4xl md:text-6xl font-display font-black mb-8 leading-tight"
+                                data-i18n="about_title">The Mind Behind The Code</h2>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-6 font-medium"
+                                data-i18n="about_desc">
+                                Architecting digital solutions from the ground up. Focused on high performance,
+                                scalability, and futuristic aesthetics.
+                            </p>
+                            <div class="flex flex-wrap gap-4">
+                                <div
+                                    class="bg-gray-100 dark:bg-white/5 px-4 py-2 rounded-lg flex items-center gap-2 font-bold text-sm">
+                                    <i class="fa-solid fa-location-dot text-red-500 animate-bounce"></i> Damascus, SY
+                                </div>
+                                <div
+                                    class="bg-gray-100 dark:bg-white/5 px-4 py-2 rounded-lg flex items-center gap-2 font-bold text-sm">
+                                    <i class="fa-solid fa-laptop-code text-blue-500"></i> Freelance
+                                </div>
+                            </div>
                         </div>
-                        <h2 class="text-4xl md:text-7xl font-display font-black mb-6 tracking-tighter"
-                            data-i18n="about_title">The Mind Behind The Code</h2>
-                        <p class="text-gray-400 text-lg md:text-xl leading-relaxed font-light" data-i18n="about_desc">
-                            Architecting digital solutions from the ground up. Focused on high performance, scalability,
-                            and futuristic aesthetics.</p>
                     </div>
-                    <div
-                        class="group relative bg-surface border border-white/10 p-6 rounded-3xl backdrop-blur-xl w-full lg:w-auto hover:border-primary/30 transition-all">
+
+                    <div class="grid grid-cols-2 gap-4">
                         <div
-                            class="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-ping rtl:right-auto rtl:-left-2">
+                            class="p-6 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-3xl border border-purple-500/20 hover:scale-105 transition-transform cursor-crosshair">
+                            <i class="fa-solid fa-brain text-4xl text-primary mb-4 animate-float"></i>
+                            <h3 class="text-xl font-black mb-2" data-i18n="goal_title">Vision</h3>
+                            <p class="text-xs text-gray-500 font-bold" data-i18n="goal_desc">Building digital assets
+                                that create leverage.</p>
                         </div>
                         <div
-                            class="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full rtl:right-auto rtl:-left-2">
+                            class="p-6 bg-gradient-to-br from-pink-500/10 to-rose-500/10 rounded-3xl border border-pink-500/20 hover:scale-105 transition-transform cursor-crosshair mt-8">
+                            <i class="fa-solid fa-bolt text-4xl text-secondary mb-4 animate-pulse"></i>
+                            <h3 class="text-xl font-black mb-2" data-i18n="exec_title">Execution</h3>
+                            <p class="text-xs text-gray-500 font-bold" data-i18n="exec_desc">Raw vision to reality with
+                                surgical precision.</p>
                         </div>
-                        <p class="text-gray-500 text-[9px] uppercase font-black tracking-widest mb-1"
-                            data-i18n="loc_title">Current Location</p>
-                        <span class="text-white font-black text-lg flex items-center gap-2"><i
-                                class="fa-solid fa-location-dot text-primary"></i> <span data-i18n="loc_city">Damascus,
-                                SY</span></span>
+                        <div
+                            class="p-6 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-3xl border border-cyan-500/20 hover:scale-105 transition-transform cursor-crosshair">
+                            <i class="fa-solid fa-server text-4xl text-accent mb-4 animate-bounce"></i>
+                            <h3 class="text-xl font-black mb-2" data-i18n="arch_title">Architecture</h3>
+                            <p class="text-xs text-gray-500 font-bold" data-i18n="arch_desc">Robust backend systems that
+                                handle scale.</p>
+                        </div>
+                        <div
+                            class="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-3xl border border-green-500/20 hover:scale-105 transition-transform cursor-crosshair mt-8">
+                            <i class="fa-solid fa-palette text-4xl text-green-500 mb-4 animate-wiggle"></i>
+                            <h3 class="text-xl font-black mb-2">Design</h3>
+                            <p class="text-xs text-gray-500 font-bold">Pixel perfect interfaces that pop.</p>
+                        </div>
                     </div>
                 </div>
-                <!-- Skills -->
-                <div class="bento-grid">
-                    <div class="bento-item-wide glass-card p-8 md:p-12 rounded-[2.5rem] relative overflow-hidden group">
-                        <div
-                            class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity rtl:left-0 rtl:right-auto pointer-events-none">
-                            <i class="fa-solid fa-code text-9xl"></i>
-                        </div>
-                        <div class="relative z-10">
-                            <div
-                                class="w-14 h-14 bg-primary/20 rounded-2xl flex items-center justify-center mb-8 text-primary group-hover:scale-110 transition-transform duration-500">
-                                <i class="fa-solid fa-terminal text-2xl"></i>
-                            </div>
-                            <h3 class="text-3xl font-black mb-6 font-display" data-i18n="skill_title">Tech Arsenal</h3>
-                            <div class="flex flex-wrap gap-3">
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">Node.js</span>
-                                <span class="skill-tag">Flutter</span>
-                                <span class="skill-tag">React</span>
-                                <span class="skill-tag">Tailwind</span>
-                                <span class="skill-tag">MongoDB</span>
-                                <span class="skill-tag">Next.js</span>
-                                <span class="skill-tag">TypeScript</span>
-                            </div>
-                        </div>
+
+                <div
+                    class="bg-white dark:bg-surface border border-black/5 dark:border-white/5 rounded-[3rem] p-8 md:p-12 shadow-xl relative overflow-hidden group">
+                    <div
+                        class="absolute -right-20 -top-20 text-[20rem] text-black/5 dark:text-white/5 rotate-12 group-hover:rotate-45 transition-transform duration-700 pointer-events-none">
+                        <i class="fa-brands fa-js"></i>
                     </div>
-                    <div class="glass-card p-8 rounded-[2.5rem] group flex flex-col justify-between">
-                        <div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-4 mb-8">
                             <div
-                                class="w-14 h-14 bg-amber-500/20 rounded-2xl flex items-center justify-center mb-6 text-amber-500 group-hover:rotate-12 rtl:group-hover:-rotate-12 transition-transform duration-500">
-                                <i class="fa-solid fa-chess-knight text-2xl"></i>
+                                class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center text-primary text-3xl shadow-[0_0_30px_rgba(139,92,246,0.3)] animate-bounce">
+                                <i class="fa-solid fa-layer-group"></i>
                             </div>
-                            <h3 class="text-xl font-black mb-3 font-display" data-i18n="goal_title">Vision</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="goal_desc">I don't just ship
-                                features; I build digital assets that create leverage.</p>
+                            <h3 class="text-4xl font-display font-black" data-i18n="skill_title">Tech Arsenal</h3>
                         </div>
-                    </div>
-                    <div class="glass-card p-8 rounded-[2.5rem] group flex flex-col justify-between">
-                        <div>
-                            <div
-                                class="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center mb-6 text-green-500 group-hover:rotate-12 rtl:group-hover:-rotate-12 transition-transform duration-500">
-                                <i class="fa-solid fa-bolt text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-black mb-3 font-display" data-i18n="exec_title">Execution</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="exec_desc">Moving at the speed
-                                of thought. Raw vision to reality with surgical precision.</p>
-                        </div>
-                    </div>
-                    <div class="glass-card p-8 rounded-[2.5rem] group flex flex-col justify-between">
-                        <div>
-                            <div
-                                class="w-14 h-14 bg-secondary/20 rounded-2xl flex items-center justify-center mb-6 text-secondary group-hover:rotate-12 rtl:group-hover:-rotate-12 transition-transform duration-500">
-                                <i class="fa-solid fa-microchip text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-black mb-3 font-display" data-i18n="arch_title">Architecture</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="arch_desc">Crafting robust
-                                backend systems that handle scale without breaking a sweat.</p>
+                        <div class="flex flex-wrap gap-4" id="skillContainer">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="projects" class="py-20 md:py-32 px-4 relative">
-            <div class="max-w-6xl mx-auto">
-                <div class="mb-16 flex flex-col md:flex-row items-start md:items-end gap-6">
-                    <div>
-                        <h2 class="text-4xl md:text-8xl font-display font-black mb-4 tracking-tighter uppercase"
-                            data-i18n="nav_projects">Ventures</h2>
-                        <div class="h-1 w-full bg-gradient-to-r from-primary to-accent rounded-full"></div>
-                    </div>
-                    <span class="hidden md:block text-gray-500 text-sm font-bold pb-6" data-i18n="sel_works">SELECTED
-                        WORKS 2024-2026</span>
+
+        <section id="projects" class="py-24 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-20">
+                    <h2 class="text-[clamp(3rem,8vw,6rem)] font-display font-black uppercase leading-none mb-4"
+                        data-i18n="nav_projects">Ventures</h2>
+                    <div class="h-2 w-32 bg-gradient-to-r from-primary to-accent rounded-full animate-pulse"></div>
                 </div>
-                <!-- Levant's Area -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-                    <div
-                        class="group rounded-[2.5rem] bg-surface border border-white/5 overflow-hidden transition-all duration-700 relative hover:shadow-2xl hover:shadow-primary/20">
-                        <div class="h-[300px] md:h-[450px] overflow-hidden relative">
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <article
+                        class="group rounded-[2.5rem] bg-white dark:bg-surface border border-black/5 dark:border-white/5 overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(139,92,246,0.2)] transition-all duration-500 hover:-translate-y-2">
+                        <div class="h-[400px] overflow-hidden relative">
                             <img src="Public/Assets/Levant-Banner.gif"
                                 onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXN6aG0xd3Z6aG0xd3Z6aG0xd3Z6aG0xd3Z6aG0xd3Z6aG0xdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1TVThqceK6M8M8e/giphy.gif'"
-                                class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent">
-                            </div>
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
-                                class="absolute top-6 right-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-lg border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 rtl:right-auto rtl:left-6">
-                                <span class="text-xs font-bold text-white" data-i18n="tag_gaming">GAMING</span>
+                                class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
                             </div>
+                            <span
+                                class="absolute top-6 left-6 px-4 py-2 bg-primary text-white text-xs font-black rounded-full shadow-lg animate-bounce"
+                                data-i18n="tag_gaming">GAMING</span>
                         </div>
-                        <div class="p-8 md:p-12 relative z-20 -mt-24 md:-mt-28">
-                            <div class="flex items-end gap-4 mb-6">
+                        <div class="p-8 md:p-10 relative">
+                            <div class="flex items-center gap-6 -mt-20 mb-6 relative z-10">
                                 <img src="Public/Assets/Levant-Logo.png"
-                                    class="w-20 h-20 md:w-28 md:h-28 rounded-3xl border-4 md:border-8 border-surface shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
-                                <div class="pb-2 md:pb-4">
-                                    <h3 class="text-2xl md:text-4xl font-display font-black">Levant</h3>
-                                    <p class="text-primary text-[10px] font-black tracking-widest uppercase"
+                                    class="w-24 h-24 rounded-3xl border-4 border-white dark:border-surface shadow-2xl group-hover:rotate-12 transition-transform">
+                                <div>
+                                    <h3 class="text-3xl font-display font-black text-white shadow-black drop-shadow-md">
+                                        Levant</h3>
+                                    <p class="text-primary font-bold tracking-wider text-xs bg-black/50 px-2 py-1 rounded backdrop-blur-sm"
                                         data-i18n="sub_digi_comm">Digital Community</p>
                                 </div>
                             </div>
-                            <p class="text-gray-400 mb-8 text-base md:text-xl font-light" data-i18n="desc_levant">A
-                                massive gaming ecosystem where cross-cultural boundaries disappear.</p>
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <a href="https://discord.gg/FBzNjDpMwa"
-                                    class="flex-1 py-4 rounded-xl font-black text-center text-xs bg-white text-black hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"><i
-                                        class="fa-brands fa-discord"></i> <span data-i18n="btn_discord">Join
-                                        Discord</span></a>
-                                <a href="https://lilzeng1.github.io/Levant/"
-                                    class="flex-1 py-4 rounded-xl font-black text-center text-xs bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
-                                    data-i18n="btn_website">Website</a>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg mb-8 font-medium"
+                                data-i18n="desc_levant">A massive gaming ecosystem where cross-cultural boundaries
+                                disappear.</p>
+                            <div class="flex gap-4">
+                                <a href="https://discord.gg/FBzNjDpMwa" target="_blank"
+                                    class="flex-1 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-black text-center transition-all hover:scale-105 flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-discord"></i> Discord
+                                </a>
+                                <a href="https://lilzeng1.github.io/Levant/" target="_blank"
+                                    class="flex-1 py-4 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-900 dark:text-white rounded-xl font-black text-center transition-all hover:scale-105">
+                                    Website
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <!-- Syria's Area -->
-                    <div
-                        class="group rounded-[2.5rem] bg-surface border border-white/5 overflow-hidden transition-all duration-700 relative hover:shadow-2xl hover:shadow-accent/20">
-                        <div class="h-[300px] md:h-[450px] overflow-hidden relative">
+                    </article>
+
+                    <article
+                        class="group rounded-[2.5rem] bg-white dark:bg-surface border border-black/5 dark:border-white/5 overflow-hidden shadow-2xl hover:shadow-[0_20px_50px_rgba(6,182,212,0.2)] transition-all duration-500 hover:-translate-y-2">
+                        <div class="h-[400px] overflow-hidden relative">
                             <img src="Public/Assets/SyriaBanner.png"
                                 onerror="this.src='https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&q=80&w=1000'"
-                                class="w-full h-full object-cover grayscale-[0.5] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent">
-                            </div>
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
-                                class="absolute top-6 right-6 px-4 py-2 bg-black/50 backdrop-blur-md rounded-lg border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 rtl:right-auto rtl:left-6">
-                                <span class="text-xs font-bold text-white" data-i18n="tag_culture">CULTURE</span>
+                                class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80">
                             </div>
+                            <span
+                                class="absolute top-6 left-6 px-4 py-2 bg-accent text-white text-xs font-black rounded-full shadow-lg animate-bounce"
+                                data-i18n="tag_culture">CULTURE</span>
                         </div>
-                        <div class="p-8 md:p-12 relative z-20 -mt-24 md:-mt-28">
-                            <div class="flex items-end gap-4 mb-6">
+                        <div class="p-8 md:p-10 relative">
+                            <div class="flex items-center gap-6 -mt-20 mb-6 relative z-10">
                                 <img src="Public/Assets/SyriaLogo.png"
-                                    class="w-20 h-20 md:w-28 md:h-28 rounded-3xl border-4 md:border-8 border-surface shadow-2xl group-hover:-translate-y-2 transition-transform duration-500">
-                                <div class="pb-2 md:pb-4">
-                                    <h3 class="text-2xl md:text-4xl font-display font-black" data-i18n="proj_syria">
-                                        Syria</h3>
-                                    <p class="text-accent text-[10px] font-black tracking-widest uppercase"
+                                    class="w-24 h-24 rounded-3xl border-4 border-white dark:border-surface shadow-2xl group-hover:rotate-12 transition-transform">
+                                <div>
+                                    <h3 class="text-3xl font-display font-black text-white shadow-black drop-shadow-md"
+                                        data-i18n="proj_syria">Syria</h3>
+                                    <p class="text-accent font-bold tracking-wider text-xs bg-black/50 px-2 py-1 rounded backdrop-blur-sm"
                                         data-i18n="sub_heritage">Heritage & Grind</p>
                                 </div>
                             </div>
-                            <p class="text-gray-400 mb-8 text-base md:text-xl font-light" data-i18n="desc_syria">Where
-                                ancient Syrian soul meets future-tech chaos. No stiffness.</p>
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <a href="https://discord.com/invite/qFDQG5aDJN"
-                                    class="flex-1 py-4 rounded-xl font-black text-center text-xs bg-white text-black hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"><i
-                                        class="fa-brands fa-discord"></i> <span data-i18n="btn_server">Join
-                                        Server</span></a>
-                                <a href="https://lilzeng1.github.io/Syria/"
-                                    class="flex-1 py-4 rounded-xl font-black text-center text-xs bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
-                                    data-i18n="btn_website">Website</a>
+                            <p class="text-gray-600 dark:text-gray-400 text-lg mb-8 font-medium" data-i18n="desc_syria">
+                                Where ancient Syrian soul meets future-tech chaos. No stiffness.</p>
+                            <div class="flex gap-4">
+                                <a href="https://discord.com/invite/qFDQG5aDJN" target="_blank"
+                                    class="flex-1 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-black text-center transition-all hover:scale-105 flex items-center justify-center gap-2">
+                                    <i class="fa-brands fa-discord"></i> Discord
+                                </a>
+                                <a href="https://lilzeng1.github.io/Syria/" target="_blank"
+                                    class="flex-1 py-4 bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-900 dark:text-white rounded-xl font-black text-center transition-all hover:scale-105">
+                                    Website
+                                </a>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </div>
         </section>
-        <!-- Contact -->
-        <section id="contact" class="py-20 md:py-32 px-4">
-            <div
-                class="max-w-4xl mx-auto text-center bg-white/5 border border-white/10 rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-24 backdrop-blur-3xl relative overflow-hidden group">
+
+        <section id="contact" class="py-24 px-4">
+            <div class="max-w-5xl mx-auto relative group">
                 <div
-                    class="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+                    class="absolute -inset-2 bg-gradient-to-r from-primary via-secondary to-accent rounded-[3rem] blur-xl opacity-20 group-hover:opacity-60 transition duration-1000 animate-gradient-text">
                 </div>
-                <div class="relative z-10">
-                    <span class="text-accent font-black tracking-[0.3em] uppercase text-[10px] mb-6 block"
-                        data-i18n="status_projects">Available for Projects</span>
-                    <h2 class="text-3xl md:text-7xl font-display font-black mb-12 tracking-tighter"
-                        data-i18n="contact_heading">Ready to build something great?</h2>
-                    <div class="flex flex-col md:flex-row justify-center gap-4">
+                <div
+                    class="relative bg-white dark:bg-black/80 border border-black/5 dark:border-white/10 rounded-[2.5rem] p-12 md:p-24 text-center backdrop-blur-xl overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-secondary to-accent">
+                    </div>
+
+                    <div class="inline-block p-4 rounded-full bg-gray-100 dark:bg-white/5 mb-8 animate-bounce">
+                        <i class="fa-solid fa-hand-spock text-4xl text-yellow-500"></i>
+                    </div>
+
+                    <h2 class="text-[clamp(2rem,6vw,5rem)] font-display font-black mb-8 leading-tight"
+                        data-i18n="contact_heading">Ready to build something <span
+                            class="text-primary">legendary?</span></h2>
+
+                    <div class="flex flex-col md:flex-row justify-center gap-6">
                         <a href="mailto:lilzeng1@outlook.com"
-                            class="flex items-center gap-4 p-4 bg-dark/50 rounded-2xl border border-white/10 hover:border-primary/50 hover:bg-primary/10 hover:scale-105 transition-all group">
+                            class="group flex items-center gap-4 p-5 bg-gray-100 dark:bg-white/5 rounded-2xl border border-transparent hover:border-primary hover:bg-white dark:hover:bg-black transition-all hover:scale-110 hover:shadow-2xl">
                             <div
-                                class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center text-primary group-hover:rotate-12 rtl:group-hover:-rotate-12 transition-transform">
-                                <i class="fa-solid fa-envelope"></i>
+                                class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center text-primary group-hover:rotate-[360deg] transition-transform duration-700">
+                                <i class="fa-solid fa-envelope text-xl"></i>
                             </div>
-                            <span class="font-bold text-sm">lilzeng1@outlook.com</span>
+                            <span class="font-bold text-lg">lilzeng1@outlook.com</span>
+                        </a>
+                        <a href="https://github.com/lilzeng1" target="_blank"
+                            class="group flex items-center gap-4 p-5 bg-gray-100 dark:bg-white/5 rounded-2xl border border-transparent hover:border-white hover:bg-black hover:text-white transition-all hover:scale-110 hover:shadow-2xl">
+                            <div
+                                class="w-12 h-12 bg-black/10 dark:bg-white/20 rounded-xl flex items-center justify-center group-hover:rotate-[360deg] transition-transform duration-700">
+                                <i class="fa-brands fa-github text-xl"></i>
+                            </div>
+                            <span class="font-bold text-lg">Github</span>
                         </a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-    <footer class="border-t border-white/5 bg-dark py-12 md:py-20 px-6 relative z-10">
+
+    <footer class="border-t border-black/5 dark:border-white/5 bg-gray-50 dark:bg-black py-12 px-6 relative z-10">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left rtl:md:text-right">
-                <h2 class="text-2xl font-display font-black italic relative inline-block group" data-i18n="name_main">
-                    George Arshed
-                </h2>
-                <span
-                    class="absolute -bottom-1 left-0 w-0 h-1 bg-primary transition-all duration-300 group-hover:w-full rtl:right-0 rtl:left-auto"></span>
-                <p class="text-gray-500 text-xs mt-2" data-i18n="footer_slogan">Crafting digital empires with code.</p>
+                <h2 class="text-2xl font-display font-black italic relative inline-block group cursor-pointer hover:text-primary transition-colors"
+                    data-i18n="name_main">George Arshed</h2>
+                <p class="text-gray-500 text-xs mt-2 font-bold tracking-widest" data-i18n="footer_slogan">CRAFTING
+                    DIGITAL EMPIRES.</p>
             </div>
-            <div class="flex gap-8">
+            <div class="flex gap-6">
                 <a href="https://github.com/lilzeng1"
-                    class="text-gray-500 hover:text-white text-xl hover:-translate-y-1 transition-all"><i
+                    class="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all hover:-translate-y-2"><i
                         class="fa-brands fa-github"></i></a>
                 <a href="https://instagram.com/lilzeng1"
-                    class="text-gray-500 hover:text-white text-xl hover:-translate-y-1 transition-all"><i
+                    class="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-pink-600 hover:text-white transition-all hover:-translate-y-2"><i
                         class="fa-brands fa-instagram"></i></a>
             </div>
-            <p class="text-gray-600 text-[9px] font-black tracking-widest uppercase" data-i18n="footer_rights">© 2026.
+            <p class="text-gray-400 text-[9px] font-black tracking-widest uppercase" data-i18n="footer_rights">© 2026.
                 DAMASCUS. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
+
     <script src="Public/Scripts/index.js"></script>
 </body>
 </html>
