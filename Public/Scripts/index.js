@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const skills = [
         "JavaScript", "Node.js", "TailwindCSS", "Flutter",
-        "MongoDB","Python:"
+        "MongoDB","Python"
     ];
     const skillContainer = document.getElementById('skillContainer');
     skills.forEach(skill => {
