@@ -193,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLangUI();
 
     const skills = [
-        "JavaScript", "TypeScript", "React", "Node.js", "TailwindCSS", "Flutter",
-        "MongoDB", "Next.js", "Python", "GraphQL", "AWS", "Figma", "Docker", "Three.js"
+        "JavaScript", "Node.js", "TailwindCSS", "Flutter",
+        "MongoDB","Python:"
     ];
     const skillContainer = document.getElementById('skillContainer');
     skills.forEach(skill => {
