@@ -7,16 +7,21 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     width: 100%;
+    overflow-x: hidden;
     cursor: default;
+    touch-action: manipulation;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -24,21 +29,19 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #8b5cf6, #ec4899);
-    border-radius: 20px;
-    border: 2px solid rgba(0, 0, 0, 0);
-    background-clip: content-box;
+    background: #8b5cf6;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #ec4899, #06b6d4);
-    border: 0;
+    background: #ec4899;
 }
 
 .animate-fade-in-up {
     animation: fadeInUp 1s cubic-bezier(0.2, 1, 0.2, 1) forwards;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
+    will-change: transform, opacity;
 }
 
 .animate-gradient-text {
@@ -49,7 +52,7 @@ body {
 @keyframes fadeInUp {
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translate3d(0, 0, 0);
     }
 }
 
@@ -72,6 +75,8 @@ body {
     cursor: pointer;
     overflow: hidden;
     z-index: 1;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .dark .skill-tag {
