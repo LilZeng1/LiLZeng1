@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="dark scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>George Arshed | Digital Architect</title>
+    <meta name="description" content="Portfolio of George Arshed, a Full-Stack Architect and Visionary Developer.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="Public/Style/index.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;700;900&display=swap"
         rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -54,10 +55,10 @@
                             '50%': { transform: 'rotate(3deg)' },
                         },
                         blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '0%': { transform: 'translate3d(0px, 0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate3d(30px, -50px, 0px) scale(1.1)' },
+                            '66%': { transform: 'translate3d(-20px, 20px, 0px) scale(0.9)' },
+                            '100%': { transform: 'translate3d(0px, 0px, 0px) scale(1)' },
                         }
                     }
                 }
@@ -65,11 +66,12 @@
         }
     </script>
 </head>
-<body class="bg-light dark:bg-dark text-gray-900 dark:text-white transition-colors duration-500 overflow-x-hidden">
+<body
+    class="bg-light dark:bg-dark text-gray-900 dark:text-white transition-colors duration-500 overflow-x-hidden selection:bg-secondary selection:text-white">
     <canvas id="particleCanvas" class="fixed inset-0 z-0 pointer-events-none opacity-40"></canvas>
 
     <div id="preloader"
-        class="fixed inset-0 z-[9999] bg-dark flex items-center justify-center transition-opacity duration-500">
+        class="fixed inset-0 z-[9999] bg-dark flex items-center justify-center transition-opacity duration-500 will-change-opacity">
         <div class="flex flex-col items-center gap-4">
             <div class="relative w-24 h-24">
                 <div class="absolute inset-0 border-t-4 border-primary rounded-full animate-spin"></div>
@@ -92,7 +94,7 @@
 
     <div class="fixed top-0 left-0 w-full h-[5px] z-[100]">
         <div id="scrollProgress"
-            class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 transition-all duration-75 shadow-[0_0_15px_rgba(139,92,246,0.5)]">
+            class="h-full bg-gradient-to-r from-primary via-secondary to-accent w-0 transition-all duration-75 shadow-[0_0_15px_rgba(139,92,246,0.5)] will-change-auto">
         </div>
     </div>
 
@@ -106,7 +108,7 @@
                         <img src="Public/Assets/GeorgeAvatar.png"
                             onerror="this.src='https://ui-avatars.com/api/?name=George+Arshed&background=random&bold=true'"
                             alt="George"
-                            class="w-12 h-12 rounded-2xl border-2 border-primary/20 group-hover:border-primary group-hover:rotate-12 transition-all duration-300 shadow-lg">
+                            class="w-12 h-12 rounded-2xl border-2 border-primary/20 group-hover:border-primary group-hover:rotate-12 transition-all duration-300 shadow-lg object-cover">
                         <div
                             class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white dark:border-dark animate-pulse">
                         </div>
@@ -146,19 +148,19 @@
 
                 <div class="flex items-center gap-3">
                     <button id="themeToggle"
-                        class="w-10 h-10 rounded-xl bg-gray-200 dark:bg-white/10 hover:bg-primary hover:text-white text-gray-700 dark:text-white transition-all hover:rotate-180 active:scale-90 shadow-lg flex items-center justify-center">
+                        class="w-10 h-10 rounded-xl bg-gray-200 dark:bg-white/10 hover:bg-primary hover:text-white text-gray-700 dark:text-white transition-all hover:rotate-180 active:scale-90 shadow-lg flex items-center justify-center cursor-pointer touch-manipulation">
                         <i class="fa-solid fa-moon dark:hidden"></i>
                         <i class="fa-solid fa-sun hidden dark:block"></i>
                     </button>
 
                     <button onclick="cycleLang()"
-                        class="hidden sm:flex items-center gap-2 bg-gray-200 dark:bg-white/10 border border-transparent hover:border-primary px-4 py-2 rounded-xl text-xs font-black tracking-widest transition-all active:scale-95 shadow-lg">
+                        class="hidden sm:flex items-center gap-2 bg-gray-200 dark:bg-white/10 border border-transparent hover:border-primary px-4 py-2 rounded-xl text-xs font-black tracking-widest transition-all active:scale-95 shadow-lg cursor-pointer">
                         <i class="fa-solid fa-language text-primary text-lg"></i>
                         <span id="currentLangDisplay">EN</span>
                     </button>
 
                     <button id="mobileMenuBtn"
-                        class="lg:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary text-white shadow-lg shadow-primary/30 active:scale-75 transition-transform">
+                        class="lg:hidden w-11 h-11 flex items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary text-white shadow-lg shadow-primary/30 active:scale-75 transition-transform cursor-pointer touch-manipulation">
                         <i class="fa-solid fa-bars-staggered text-lg"></i>
                     </button>
                 </div>
@@ -171,7 +173,7 @@
             class="absolute inset-0 bg-white/90 dark:bg-dark/95 backdrop-blur-2xl opacity-0 transition-opacity duration-500">
         </div>
         <div id="mobileMenuContent"
-            class="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white dark:bg-surface border-l dark:border-white/10 shadow-2xl transform translate-x-full transition-transform duration-500 ease-elastic p-8 flex flex-col justify-between">
+            class="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white dark:bg-surface border-l dark:border-white/10 shadow-2xl transform translate-x-full transition-transform duration-500 ease-out p-8 flex flex-col justify-between overflow-y-auto">
             <div>
                 <div class="flex justify-between items-center mb-12">
                     <div class="flex items-center gap-3">
@@ -181,7 +183,7 @@
                         <span class="font-display font-black text-xl" data-i18n="name_short">George.</span>
                     </div>
                     <button id="closeMenuBtn"
-                        class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center">
+                        class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center cursor-pointer">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -190,33 +192,37 @@
                         class="mobile-link p-4 rounded-2xl hover:bg-primary/10 flex items-center gap-4 group transition-all">
                         <div
                             class="w-10 h-10 rounded-lg bg-primary/20 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-house"></i></div>
+                            <i class="fa-solid fa-house"></i>
+                        </div>
                         <span class="text-2xl font-black font-display" data-i18n="nav_home">Home</span>
                     </a>
                     <a href="#about"
                         class="mobile-link p-4 rounded-2xl hover:bg-secondary/10 flex items-center gap-4 group transition-all">
                         <div
                             class="w-10 h-10 rounded-lg bg-secondary/20 text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-user"></i></div>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
                         <span class="text-2xl font-black font-display" data-i18n="nav_about">About</span>
                     </a>
                     <a href="#projects"
                         class="mobile-link p-4 rounded-2xl hover:bg-accent/10 flex items-center gap-4 group transition-all">
                         <div
                             class="w-10 h-10 rounded-lg bg-accent/20 text-accent flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-rocket"></i></div>
+                            <i class="fa-solid fa-rocket"></i>
+                        </div>
                         <span class="text-2xl font-black font-display" data-i18n="nav_projects">Ventures</span>
                     </a>
                     <a href="#contact"
                         class="mobile-link p-4 rounded-2xl hover:bg-green-500/10 flex items-center gap-4 group transition-all">
                         <div
                             class="w-10 h-10 rounded-lg bg-green-500/20 text-green-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-envelope"></i></div>
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
                         <span class="text-2xl font-black font-display" data-i18n="nav_contact">Contact</span>
                     </a>
                 </div>
             </div>
-            <div class="flex gap-4">
+            <div class="flex gap-4 mt-8">
                 <button onclick="cycleLang()"
                     class="flex-1 py-3 rounded-xl bg-gray-100 dark:bg-white/5 font-bold hover:bg-primary hover:text-white transition-all">
                     <i class="fa-solid fa-globe mr-2"></i> <span id="mobileLangDisplay">EN</span>
@@ -232,17 +238,19 @@
     <main class="relative z-10">
         <section id="home"
             class="min-h-screen flex items-center justify-center relative px-6 pt-24 pb-12 overflow-hidden">
-            <div class="absolute top-20 left-10 w-32 h-32 bg-primary/30 rounded-full blur-[50px] animate-blob"></div>
             <div
-                class="absolute top-40 right-10 w-32 h-32 bg-secondary/30 rounded-full blur-[50px] animate-blob animation-delay-2000">
+                class="absolute top-20 left-10 w-32 h-32 bg-primary/30 rounded-full blur-[50px] animate-blob mix-blend-multiply filter">
             </div>
             <div
-                class="absolute bottom-20 left-1/2 w-48 h-48 bg-accent/30 rounded-full blur-[60px] animate-blob animation-delay-4000">
+                class="absolute top-40 right-10 w-32 h-32 bg-secondary/30 rounded-full blur-[50px] animate-blob animation-delay-2000 mix-blend-multiply filter">
+            </div>
+            <div
+                class="absolute bottom-20 left-1/2 w-48 h-48 bg-accent/30 rounded-full blur-[60px] animate-blob animation-delay-4000 mix-blend-multiply filter">
             </div>
 
             <div class="text-center max-w-5xl mx-auto z-10 perspective-1000">
                 <h1
-                    class="text-[clamp(3.5rem,12vw,9rem)] font-display font-black mb-6 tracking-tighter leading-[0.85] animate-fade-in-up drop-shadow-2xl hover:scale-[1.02] transition-transform cursor-default select-none">
+                    class="text-[clamp(3.5rem,12vw,9rem)] font-display font-black mb-6 tracking-tighter leading-[0.85] animate-fade-in-up drop-shadow-2xl hover:scale-[1.02] transition-transform cursor-default select-none will-change-transform">
                     <span data-i18n="hero_title_1"
                         class="inline-block hover:text-primary transition-colors duration-300">Digital</span> <br>
                     <span
@@ -266,7 +274,7 @@
 
                 <div class="flex flex-col sm:flex-row justify-center gap-5 animate-fade-in-up delay-200 px-4">
                     <a href="#projects"
-                        class="group relative px-10 py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-lg shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.4)] transition-all hover:-translate-y-2 overflow-hidden">
+                        class="group relative px-10 py-5 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black text-lg shadow-[0_10px_20px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(139,92,246,0.4)] transition-all hover:-translate-y-2 overflow-hidden cursor-pointer">
                         <div
                             class="absolute inset-0 bg-gradient-to-r from-primary via-secondary to-primary opacity-0 group-hover:opacity-20 transition-opacity w-[200%] animate-gradient-text">
                         </div>
@@ -276,7 +284,7 @@
                         </span>
                     </a>
                     <a href="#contact"
-                        class="px-10 py-5 bg-white/50 dark:bg-white/5 border-2 border-black/10 dark:border-white/10 rounded-2xl font-black text-lg hover:bg-white hover:border-transparent hover:text-black dark:hover:bg-white dark:hover:text-black transition-all hover:-translate-y-2 backdrop-blur-md shadow-lg"
+                        class="px-10 py-5 bg-white/50 dark:bg-white/5 border-2 border-black/10 dark:border-white/10 rounded-2xl font-black text-lg hover:bg-white hover:border-transparent hover:text-black dark:hover:bg-white dark:hover:text-black transition-all hover:-translate-y-2 backdrop-blur-md shadow-lg cursor-pointer"
                         data-i18n="btn_contact_me">
                         Contact Me
                     </a>
@@ -316,12 +324,12 @@
             </div>
         </section>
 
-        <section id="about" class="py-24 px-6 relative">
-            <div class="max-w-7xl mx-auto">
+        <section id="about" class="py-24 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto relative z-10">
                 <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
                     <div data-tilt data-tilt-max="5" class="relative group">
                         <div
-                            class="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-[2rem] blur-lg opacity-30 group-hover:opacity-75 transition duration-500 animate-tilt">
+                            class="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-[2rem] blur-lg opacity-30 group-hover:opacity-75 transition duration-500 animate-tilt will-change-opacity">
                         </div>
                         <div
                             class="relative bg-white dark:bg-surface border border-black/5 dark:border-white/10 p-10 rounded-[2rem] shadow-2xl">
@@ -395,8 +403,7 @@
                             </div>
                             <h3 class="text-4xl font-display font-black" data-i18n="skill_title">Tech Arsenal</h3>
                         </div>
-                        <div class="flex flex-wrap gap-4" id="skillContainer">
-                        </div>
+                        <div class="flex flex-wrap gap-4" id="skillContainer"></div>
                     </div>
                 </div>
             </div>
@@ -427,7 +434,7 @@
                         <div class="p-8 md:p-10 relative">
                             <div class="flex items-center gap-6 -mt-20 mb-6 relative z-10">
                                 <img src="Public/Assets/Levant-Logo.png"
-                                    class="w-24 h-24 rounded-3xl border-4 border-white dark:border-surface shadow-2xl group-hover:rotate-12 transition-transform">
+                                    class="w-24 h-24 rounded-3xl border-4 border-white dark:border-surface shadow-2xl group-hover:rotate-12 transition-transform bg-black">
                                 <div>
                                     <h3 class="text-3xl font-display font-black text-white shadow-black drop-shadow-md">
                                         Levant</h3>
@@ -467,7 +474,7 @@
                         <div class="p-8 md:p-10 relative">
                             <div class="flex items-center gap-6 -mt-20 mb-6 relative z-10">
                                 <img src="Public/Assets/SyriaLogo.png"
-                                    class="w-24 h-24 rounded-3xl border-4 border-white dark:border-surface shadow-2xl group-hover:rotate-12 transition-transform">
+                                    class="w-24 h-24 rounded-3xl border-4 border-white dark:border-surface shadow-2xl group-hover:rotate-12 transition-transform bg-black">
                                 <div>
                                     <h3 class="text-3xl font-display font-black text-white shadow-black drop-shadow-md"
                                         data-i18n="proj_syria">Syria</h3>
