@@ -14,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <script>
+        // TailwindCSS Config
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -98,6 +99,7 @@
         </div>
     </div>
 
+    <!-- Navbar -->
     <nav class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-black/5 dark:border-white/5 bg-white/70 dark:bg-dark/80 backdrop-blur-xl"
         id="navbar">
         <div class="max-w-7xl mx-auto px-4 md:px-6">
@@ -168,6 +170,7 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu | Hamburger Navbar -->
     <div id="mobileMenu" class="fixed inset-0 z-[100] hidden">
         <div id="mobileMenuOverlay"
             class="absolute inset-0 bg-white/90 dark:bg-dark/95 backdrop-blur-2xl opacity-0 transition-opacity duration-500">
@@ -324,6 +327,7 @@
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="py-24 px-6 relative overflow-hidden">
             <div class="max-w-7xl mx-auto relative z-10">
                 <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
@@ -409,6 +413,7 @@
             </div>
         </section>
 
+        <!-- Projects Section -->
         <section id="projects" class="py-24 px-4 relative">
             <div class="max-w-7xl mx-auto">
                 <div class="mb-20">
@@ -500,6 +505,7 @@
             </div>
         </section>
 
+        <!-- Contact -->
         <section id="contact" class="py-24 px-4">
             <div class="max-w-5xl mx-auto relative group">
                 <div
@@ -541,6 +547,7 @@
         </section>
     </main>
 
+    <!-- Footer Section -->
     <footer class="border-t border-black/5 dark:border-white/5 bg-gray-50 dark:bg-black py-12 px-6 relative z-10">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left rtl:md:text-right">
